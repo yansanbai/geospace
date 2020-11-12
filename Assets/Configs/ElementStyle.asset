@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d84cab86b2f34be4809f1e73d883c39, type: 3}
+  m_Name: ElementStyle
+  m_EditorClassIdentifier: 
+  VertexStyle:
+  - Icon: {fileID: 21300000, guid: 009499371150e4704b81d6d86879c5f9, type: 3}
+    Material: {fileID: 2100000, guid: 322713eec4bf247f885dedaca9e755a0, type: 2}
+  - Icon: {fileID: 21300000, guid: 40bce8f4de1784e92ba53e2061401699, type: 3}
+    Material: {fileID: 2100000, guid: 4b0461816154b4ee590a1b5ed653c984, type: 2}
+  - Icon: {fileID: 21300000, guid: 00a90f143d5ce47eb8bac8c0ad23dd66, type: 3}
+    Material: {fileID: 2100000, guid: aa1d66091c2c445c49db9cc6d3de08fa, type: 2}
+  EdgeStyle:
+  - Icon: {fileID: 21300000, guid: f5d8d8e98a6774b66a0688a21b6f87a4, type: 3}
+    Material: {fileID: 2100000, guid: 5d126f46446174e80a795a0de5107d1b, type: 2}
+  - Icon: {fileID: 21300000, guid: dd36adb56f3db49df8c5de54f69fbbf1, type: 3}
+    Material: {fileID: 2100000, guid: 5e88d832077b4481bae932d71211fbd2, type: 2}
+  - Icon: {fileID: 21300000, guid: 8e769f6865e744e54a0e43674970aa08, type: 3}
+    Material: {fileID: 2100000, guid: a1c6699d377a14ea28c2bc43f9329ffa, type: 2}
+  FaceStyle:
+  - Icon: {fileID: 21300000, guid: e7b2e32b4a85c458bb9538a48197ca13, type: 3}
+    Material: {fileID: 2100000, guid: e60b55acef549435db5ab522306e7bf2, type: 2}
+  - Icon: {fileID: 21300000, guid: db1be51cb195a47349735012f9424703, type: 3}
+    Material: {fileID: 2100000, guid: 1bd1a9cec8125480eb2eac8a3e061494, type: 2}
+  - Icon: {fileID: 21300000, guid: 349c610cda34d4b9ab1a71ffdc8bfb5d, type: 3}
+    Material: {fileID: 2100000, guid: 21c2dd4e85222477e835d5c1a29f6bdd, type: 2}

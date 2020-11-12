@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85409a024a8324ef2b0e1356c61acd18, type: 3}
+  m_Name: Tool
+  m_EditorClassIdentifier: 
+  GeometryGroup:
+    Icon: {fileID: 21300000, guid: a2653deafa52d4236a8a6ad16a8a7391, type: 3}
+    Name: Geometry
+    Color: 0
+    Type: 0
+    Tools:
+    - Icon: {fileID: 21300000, guid: a2653deafa52d4236a8a6ad16a8a7391, type: 3}
+      Name: Cuboid
+      Description: "\u7ACB\u65B9\u4F53"
+      Type: 0
+    - Icon: {fileID: 21300000, guid: f97221ebfcd434112befcfe44b066619, type: 3}
+      Name: TriPyramid
+      Description: "\u4E09\u68F1\u9525"
+      Type: 0
+    - Icon: {fileID: 21300000, guid: 39857099206fe4249a900ebe9d2af84b, type: 3}
+      Name: ResolvedBody
+      Description: "\u65CB\u8F6C\u4F53"
+      Type: 0
+    - Icon: {fileID: 21300000, guid: 39d0c00158a64a140b6a651549e9571a, type: 3}
+      Name: Function
+      Description: "\u51FD\u6570"
+      Type: 0
+  ConditionGroup:
+    Icon: {fileID: 21300000, guid: 0ea1222560b66423db8eb508886e6ff6, type: 3}
+    Name: Condition
+    Color: 1
+    Type: 1
+    Tools:
+    - Icon: {fileID: 21300000, guid: e2b7d6cd624cb454f99e1c16c276e0c0, type: 3}
+      Name: BottomLength
+      Description: "\u5E95\u9762\u8FB9\u957F"
+      Type: 3
+    - Icon: {fileID: 21300000, guid: bc793a7a26f89432fa37f1927d0bbd7a, type: 3}
+      Name: BottomAngle
+      Description: "\u5E95\u9762\u89D2\u5EA6"
+      Type: 3
+    - Icon: {fileID: 21300000, guid: 08fb20a5a758f4423bd115de9cb516b8, type: 3}
+      Name: TopLength
+      Description: "\u68F1\u957F"
+      Type: 3
+    - Icon: {fileID: 21300000, guid: 536959c34b41a4fbba496e5b235e6da7, type: 3}
+      Name: TopTRight
+      Description: "\u68F1\u4E0E\u68F1\u5782\u76F4"
+      Type: 3
+    - Icon: {fileID: 21300000, guid: a1c22734a373b47b79f729ec040a1e2d, type: 3}
+      Name: TopBRight
+      Description: "\u68F1\u4E0E\u5E95\u8FB9\u5782\u76F4"
+      Type: 3
+    - Icon: {fileID: 21300000, guid: d93d283d0aa3140efae291d185511596, type: 3}
+      Name: CuboidLength
+      Description: "\u957F"
+      Type: 2
+    - Icon: {fileID: 21300000, guid: 0c05bf9f7784e4c109ac97f94e48e8b3, type: 3}
+      Name: CuboidWidth
+      Description: "\u5BBD"
+      Type: 2
+    - Icon: {fileID: 21300000, guid: 0ea1222560b66423db8eb508886e6ff6, type: 3}
+      Name: CuboidHeight
+      Description: "\u9AD8"
+      Type: 2
+    - Icon: {fileID: 21300000, guid: f3602e905d1824f92831e5800bf7c6c8, type: 3}
+      Name: Rectangle
+      Description: "\u77E9\u5F62"
+      Type: 4
+    - Icon: {fileID: 21300000, guid: 67f1939db7b294f70870205be29febeb, type: 3}
+      Name: Triangle
+      Description: "\u4E09\u89D2\u5F62"
+      Type: 4
+  AuxiliaryGroup:
+    Icon: {fileID: 21300000, guid: f8c2d36ef62b5416fa54e411d9d727a4, type: 3}
+    Name: Auxiliary
+    Color: 2
+    Type: 2
+    Tools:
+    - Icon: {fileID: 21300000, guid: b31be54da294648a4b9e6e4ac32e2ab6, type: 3}
+      Name: Point
+      Description: "\u4F5C\u7A7A\u95F4\u4E2D\u7684\u70B9"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: c6a562a8006a1456e9dcc519075ddada, type: 3}
+      Name: MidPoint
+      Description: "\u4F5C\u4E24\u70B9\u3001\u7EBF\u6BB5\u7684\u4E2D\u70B9"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: 6bd29955dd5674ff28d72cb18d57e98c, type: 3}
+      Name: LinePoint
+      Description: "\u7EBF\u6BB5\u63CF\u70B9"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: c2ab69030f87e4c0ebf1d24ad47d148b, type: 3}
+      Name: CenterPoint
+      Description: "\u4F5C\u5E73\u9762\u7684\u91CD\u5FC3"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: f8c2d36ef62b5416fa54e411d9d727a4, type: 3}
+      Name: Line
+      Description: "\u8FDE\u63A5\u4E24\u70B9\u4F5C\u7EBF\u6BB5"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: d2efab06e39034e05931ce040850e168, type: 3}
+      Name: LineVertical
+      Description: "\u8FC7\u70B9\u4F5C\u7EBF\u6BB5\u7684\u5782\u7EBF"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: c49ed2d0cc3504503bcf325837997beb, type: 3}
+      Name: PlaneVertical
+      Description: "\u8FC7\u70B9\u4F5C\u5E73\u9762\u7684\u5782\u7EBF"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: 8f4897f3f4ab448aea974a5e7122571a, type: 3}
+      Name: Plane
+      Description: "\u8FDE\u63A5\u70B9\u4F5C\u5E73\u9762"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: 74fc7c2568f1340d48e9ef1cbe9e5b2f, type: 3}
+      Name: Spin
+      Description: "\u65CB\u8F6C"
+      Type: 4
+    - Icon: {fileID: 21300000, guid: 9d87b33eeef304d618d36ac645115c4f, type: 3}
+      Name: Spread
+      Description: "\u5C55\u5F00"
+      Type: 4
+  MeasureGroup:
+    Icon: {fileID: 21300000, guid: 24f2e00d2fa0845738cd60aada1cfeed, type: 3}
+    Name: Measure
+    Color: 3
+    Type: 3
+    Tools:
+    - Icon: {fileID: 21300000, guid: 24f2e00d2fa0845738cd60aada1cfeed, type: 3}
+      Name: LineLength
+      Description: "\u6D4B\u91CF\u7EBF\u6BB5\u957F\u5EA6"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: 81a9e27e907924d828b332e4e403d0ef, type: 3}
+      Name: CornerAngle
+      Description: "\u6D4B\u91CF\u5939\u89D2\u89D2\u5EA6"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: 8982dab3021e141f888c749a1ded9cfe, type: 3}
+      Name: PlaneArea
+      Description: "\u6D4B\u91CF\u5E73\u9762\u9762\u79EF"
+      Type: 1
+    - Icon: {fileID: 21300000, guid: eeee80cc1bb6c493bb0252f569a34c41, type: 3}
+      Name: SurfaceArea
+      Description: "\u6D4B\u91CF\u8868\u9762\u9762\u79EF"
+      Type: 4
+    - Icon: {fileID: 21300000, guid: 312e0ae8300264c7ab0b9200ef839da2, type: 3}
+      Name: Volume
+      Description: "\u6D4B\u91CF\u4F53\u79EF"
+      Type: 4

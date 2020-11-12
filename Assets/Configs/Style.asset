@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc4c0e4c22b4442ea9b59f51b9a9a6b, type: 3}
+  m_Name: Style
+  m_EditorClassIdentifier: 
+  Font: {fileID: 12800000, guid: e0ab162844f224de5b79bf876a745a7f, type: 3}
+  SignSize: 25
+  GizmoTextSize: 20
+  AxisSignSize: 20
+  PointSignSize: 16
+  Text: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+  Background: {r: 0.93333334, g: 0.93333334, b: 0.93333334, a: 1}
+  Card: {r: 1, g: 1, b: 1, a: 1}
+  Default: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
+  Themes:
+  - {r: 0.95686275, g: 0.34901962, b: 0.39215687, a: 1}
+  - {r: 1, g: 0.8392157, b: 0.4627451, a: 1}
+  - {r: 0.41568628, g: 0.79607844, b: 0.49803922, a: 1}
+  - {r: 0.26666668, g: 0.7529412, b: 0.98039216, a: 1}
+  - {r: 0.5882353, g: 0.44705883, b: 0.8156863, a: 1}
+  Highlight: {r: 1, g: 0.8392157, b: 0.4627451, a: 1}
+  Error: {r: 0.95686275, g: 0.34901962, b: 0.39215687, a: 1}
+  Valid: {r: 0.41568628, g: 0.79607844, b: 0.49803922, a: 1}
+  Geometry: {r: 0.73333335, g: 0.73333335, b: 0.73333335, a: 1}
+  GeometryS: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  Point: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  Line: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  Plane: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
+  ElementH: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  Sign: {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 1}
+  Gizmo: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  Grid: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  AxisX: {r: 0.95686275, g: 0.34901962, b: 0.39215687, a: 1}
+  AxisY: {r: 0.41568628, g: 0.79607844, b: 0.49803922, a: 1}
+  AxisZ: {r: 0.26666668, g: 0.7529412, b: 0.98039216, a: 1}
+  NavAxisX: {r: 0.95686275, g: 0.34901962, b: 0.39215687, a: 1}
+  NavAxisXS: {r: 0.8980392, g: 0.27450982, b: 0.31764707, a: 1}
+  NavAxisY: {r: 0.41568628, g: 0.79607844, b: 0.49803922, a: 1}
+  NavAxisYS: {r: 0.34901962, g: 0.74509805, b: 0.43137255, a: 1}
+  NavAxisZ: {r: 0.26666668, g: 0.7529412, b: 0.98039216, a: 1}
+  NavAxisZS: {r: 0.19607843, g: 0.69411767, b: 0.9254902, a: 1}
+  NavAxisW: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
+  NavAxisWS: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  NavAxisH: {r: 0.03529412, g: 0.03529412, b: 0.03529412, a: 1}
+  Center: {r: 0.93333334, g: 0.93333334, b: 0.93333334, a: 1}
+  CenterS: {r: 0.73333335, g: 0.73333335, b: 0.73333335, a: 1}
+  GeometryMaterial: {fileID: 2100000, guid: e17b3c4f5e5d54f70b9efcb2eac70aa2, type: 2}
+  GizmosLineMaterial: {fileID: 2100000, guid: cdaf90e52ab1642ff884468a48f80b12, type: 2}
+  GridMaterial: {fileID: 2100000, guid: 7f5cc92a6ebb04f478eda0b127c51bd7, type: 2}
+  AxisMaterial: {fileID: 2100000, guid: 8f02566272dd54af79e6eb8a9fb1faaf, type: 2}
+  ArrowMaterial: {fileID: 2100000, guid: 35b378a708e8a48a0b3c0309aba0e0c5, type: 2}
+  SignMaterial: {fileID: 2100000, guid: e4f9db9a3403b4f9f8b94819a186442a, type: 2}
+  SignBackgroundMaterial: {fileID: 2100000, guid: 58d0a6c884a2941f2bc51ff4289e8fbe,
+    type: 2}
+  NavAxisMaterial: {fileID: 2100000, guid: a2cbea59eafb843609fdce3661a66ede, type: 2}
+  CenterMaterial: {fileID: 2100000, guid: f9fc73e15d9884b92aef8b336a94627e, type: 2}
