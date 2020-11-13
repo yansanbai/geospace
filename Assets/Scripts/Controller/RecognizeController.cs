@@ -136,7 +136,7 @@ public class RecognizeController : MonoBehaviour
     public void GetRecognizeFomula(string base64,out string result,out Vector3[] positions)
     {
         result = "";
-        positions = new Vector3[100];
+        positions = new Vector3[10];
         try
         {
             Encoding encoding = Encoding.Default;
@@ -156,9 +156,10 @@ public class RecognizeController : MonoBehaviour
             Debug.Log(str);
             JObject jo = JObject.Parse(str);
             result = (string)jo["data"]["latex"];
-            JArray x = (JArray)jo["data"]["points"];
-            Debug.Log(x.Count);
-            for (int i = 0; i < x.Count; i++) {
+            int length = ((JArray)jo["data"]["points"]).Count;
+            positions = new Vector3[length];
+            Debug.Log(length);
+            for (int i = 0; i < length; i++) {
                 positions[i][0] = (float)jo["data"]["points"][i][0];
                 positions[i][1] = (float)jo["data"]["points"][i][1];
                 positions[i][2] = 0;
