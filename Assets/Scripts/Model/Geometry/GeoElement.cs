@@ -292,3 +292,39 @@ public class GeoCircular : GeoElement
             vertex.RemoveObserveElement(this);
     }
 }
+
+public class GeoLine : GeoElement
+{
+    private Vector3[] positions;
+    public GeoLine( Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
+    {
+        name = "Line";
+        positions = pos;
+    }
+    /*    public Line Line()
+        {
+            return new Line(positions);
+        }*/
+
+    public Vector3[] Position()
+    {
+        return positions;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("line");
+    }
+
+    public override void AddObserveElements()
+    {
+        /*vertex.AddObserveElement(this);*/
+    }
+
+    public override void RemoveObserveElements()
+    {
+        //vertex.RemoveObserveElement(this);
+    }
+}
+
+

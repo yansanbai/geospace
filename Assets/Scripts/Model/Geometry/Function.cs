@@ -15,17 +15,9 @@ public class Function : Geometry
     }
 
     public void SetWriting(Vector3[] pos) {
-        GameObject geo = GameObject.Find("/3D/Geometry");
-        GameObject line = new GameObject("Line");
-        line.transform.SetParent(geo.transform);
-        LineRenderer lr = line.AddComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Sprites/Default"));
-        lr.startWidth = 0.03f;
-        lr.endWidth = 0.03f;
-        lr.startColor = new Color(0.5f, 0.5f, 0.5f, 1f);
-        lr.endColor = new Color(0.5f, 0.5f, 0.5f, 1f);
-        lr.positionCount = pos.Length;
-        lr.SetPositions(pos);
+
+        GeoLine line = new GeoLine(pos);
+        AddGeoLine(line);
     }
 }
 

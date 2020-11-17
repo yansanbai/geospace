@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineBehaviour : GizmoBehaviour
+public class LineBehaviour : ElementBehaviour
 {
-    const float LINE_WIDTH = 0.05f;
+    const float LINE_WIDTH = 0.03f;
     const float LINE_LENGTH = 0.2f;
 
+
     private LineRenderer lineRenderer;
+    private Vector3[] positions;
 
     private Vector3 vertex1;
     private Vector3 vertex2;
     private Vector3 vertex3;
 
-    public void Init()
+    public void Init(GeoLine geoLine, GeoCamera geoCamera)
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
-
-        lineRenderer.alignment = LineAlignment.View;
-        lineRenderer.useWorldSpace = false;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startWidth = LINE_WIDTH;
         lineRenderer.endWidth = LINE_WIDTH;
-        lineRenderer.positionCount = 3;
+        lineRenderer.startColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        lineRenderer.endColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        positions = geoLine.Position();
+        lineRenderer.positionCount = positions.Length;
+        lineRenderer.SetPositions(positions);
     }
 
     public void SetData(Vector3 v1, Vector3 v2, Vector3 v3)

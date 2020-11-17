@@ -21,6 +21,7 @@ public class GeometryBehaviour : MonoBehaviour
     GameObject faceWrapper;
     GameObject signWrapper;
     GameObject gizmoWrapper;
+    GameObject lineWrapper;
 
     public Dictionary<GeoElement, ElementBehaviour> elementMap;
     Dictionary<GeoVertex, VertexBehaviour> vertexMap;
@@ -28,6 +29,7 @@ public class GeometryBehaviour : MonoBehaviour
     Dictionary<GeoFace, FaceBehaviour> faceMap;
     Dictionary<GeoCircle, CircleBehaviour> circleMap;
     Dictionary<GeoCircular, CircularBehaviour> circularMap;
+    Dictionary<GeoLine, LineBehaviour> lineMap;
     Dictionary<int, SignBehaviour> signMap;
 
     Dictionary<Gizmo, GizmoBehaviour> gizmoMap;
@@ -53,6 +55,7 @@ public class GeometryBehaviour : MonoBehaviour
         faceWrapper = InitWrapper("Face");
         signWrapper = InitWrapper("Sign");
         gizmoWrapper = InitWrapper("Gizmo");
+        lineWrapper = InitWrapper("Line");
 
         elementMap = new Dictionary<GeoElement, ElementBehaviour>();
         hideElements = new List<GeoElement>();
@@ -64,12 +67,15 @@ public class GeometryBehaviour : MonoBehaviour
         circularMap = new Dictionary<GeoCircular, CircularBehaviour>();
         signMap = new Dictionary<int, SignBehaviour>();
         gizmoMap = new Dictionary<Gizmo, GizmoBehaviour>();
+        lineMap=new Dictionary<GeoLine, LineBehaviour>();
 
     }
 
     public void InitGeometry(Geometry geo)
     {
-        if (geometry != null)
+        if (geometry != null && geometry.Type == GeometryType.Function)
+            Clear(2);
+        else
             Clear(3);
 
         geometry = geo;
@@ -90,7 +96,8 @@ public class GeometryBehaviour : MonoBehaviour
         GeoFace[] faces = geometry.GeoFaces();
         GeoCircle[] circles = geometry.GeoCircles();
         GeoCircular[] circulars = geometry.GeoCirculars();
-        
+        GeoLine[] lines = geometry.GeoLines();
+
         // New Geometry
         // mesh = GeometryToMesh();
 
@@ -128,9 +135,15 @@ public class GeometryBehaviour : MonoBehaviour
         for (int i = 0; i < circulars.Length; i++)
             AddCircular(circulars[i]);
 
+        //New Lines
+        for (int i = 0; i < lines.Length; i++)
+            AddLine(lines[i]);
+
         // New Signs
         for (int i = 0; i < geometry.UnitCount(); i++)
             AddSign(i);
+
+
     }
 
     public void AddFaces() {
@@ -205,6 +218,11 @@ public class GeometryBehaviour : MonoBehaviour
         foreach (KeyValuePair<GeoFace, FaceBehaviour> pair in faceMap)
             Destroy(pair.Value.gameObject);
         faceMap.Clear();
+
+        //Clear Line
+        foreach (KeyValuePair<GeoLine, LineBehaviour> pair in lineMap)
+            Destroy(pair.Value.gameObject);
+        lineMap.Clear();
 
         // Clear Signs
         foreach (KeyValuePair<int, SignBehaviour> pair in signMap)
@@ -300,6 +318,21 @@ public class GeometryBehaviour : MonoBehaviour
 
         circularMap.Add(geoCircular, circularBehaviour);
         elementMap.Add(geoCircular, circularBehaviour);
+    }
+
+    //generate function line
+    private void AddLine(GeoLine geoLine)
+    {
+        GameObject planeObject = new GameObject(geoLine.ToString());
+        planeObject.transform.SetParent(lineWrapper.transform);
+
+        LineBehaviour lineBehaviour = planeObject.AddComponent<LineBehaviour>();
+        lineBehaviour.Init(geoLine, geoCamera);
+
+        //lineBehaviour.SetData(geometry.Circular(geoLine));
+
+        lineMap.Add(geoLine, lineBehaviour);
+        elementMap.Add(geoLine, lineBehaviour);
     }
 
 

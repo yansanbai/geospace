@@ -128,7 +128,6 @@ public class ResolvedBody : Geometry
 
         GeoFace f0 = new GeoFace(new VertexUnit[] { u0, u1, u2, u3 }, true);
         AddGeoFace(f0);
-
         InitDatas();
 
         NavAxisBehaviour axis = GameObject.Find("X").GetComponent<NavAxisBehaviour>();

@@ -47,7 +47,6 @@ public class AddConditionOperation : Operation
         FormInput formInput = conditionTool.FormInput();
         if (formInput != null)
         {
-             Debug.Log("wozaizhe");
 ;            inputPanel.SetFormForInput(conditionTool.FormInput());
 
             inputPanel.OnValidate = (form) =>

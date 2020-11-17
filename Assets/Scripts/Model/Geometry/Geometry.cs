@@ -29,6 +29,7 @@ public abstract class Geometry
     private List<GeoFace> geoFaces;
     private List<GeoCircle> geoCircles;
     private List<GeoCircular> geoCirculars;
+    private List<GeoLine> geoLines;
 
     private Vector3 center;
 
@@ -53,6 +54,7 @@ public abstract class Geometry
         geoFaces = new List<GeoFace>();
         geoCircles = new List<GeoCircle>();
         geoCirculars = new List<GeoCircular>();
+        geoLines = new List<GeoLine>();
 
         signVertexMap = new Dictionary<string, int>();
         vertexSignMap = new Dictionary<int, string>();
@@ -205,6 +207,11 @@ public abstract class Geometry
         return geoCirculars.ToArray();
     }
 
+    public GeoLine[] GeoLines()
+    {
+        return geoLines.ToArray();
+    }
+
 
     public void AddElement(GeoElement element)
     {
@@ -218,6 +225,8 @@ public abstract class Geometry
             AddGeoCircle((GeoCircle)element);
         else if (element is GeoCircular)
             AddGeoCircular((GeoCircular)element);
+        else if (element is GeoLine)
+            AddGeoLine((GeoLine)element);
     }
 
     public void AddGeoVertex(GeoVertex vertex)
@@ -257,6 +266,12 @@ public abstract class Geometry
         {
             RemoveGeoEdge(edge);
         }
+    }
+
+    public void AddGeoLine(GeoLine line)
+    {
+        geoLines.Add(line);
+        line.AddObserveElements();
     }
 
     public void RemoveElement(GeoElement element)
@@ -437,6 +452,11 @@ public abstract class Geometry
     {
         return circular.Circular();
     }
+
+/*    public Line Line(GeoCircular circular)
+    {
+        return circular.Circular();
+    }*/
 
     public Vector3 Direction(int from, int to)
     {

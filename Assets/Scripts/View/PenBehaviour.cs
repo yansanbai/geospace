@@ -613,8 +613,10 @@ public class PenBehaviour : ElementBehaviour
         {
             if (geometry != null && geometry.Type == GeometryType.Function)
             {
-                Function function = (Function)geometry;
-                function.SetWriting(positions);
+                 Function function = (Function)geometry;
+                 function.SetWriting(positions);
+                 geometryBehaviour.InitGeometry(geometry);
+                 
             }
             else
             {
