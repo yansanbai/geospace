@@ -276,6 +276,7 @@ public abstract class Geometry
 
     public void RemoveElement(GeoElement element)
     {
+
         if (element is GeoVertex)
             RemoveGeoVertex((GeoVertex)element);
         else if (element is GeoEdge)
@@ -286,6 +287,8 @@ public abstract class Geometry
             RemoveGeoCircle((GeoCircle)element);
         else if (element is GeoCircular)
             RemoveGeoCircular((GeoCircular)element);
+        else if (element is GeoLine)
+            RemoveGeoLine((GeoLine)element);
     }
 
     public void RemoveGeoVertex(GeoVertex vertex)
@@ -316,6 +319,12 @@ public abstract class Geometry
     {
         geoCirculars.Remove(circular);
         circular.RemoveObserveElements();
+    }
+
+    public void RemoveGeoLine(GeoLine line)
+    {
+        geoLines.Remove(line);
+        line.RemoveObserveElements();
     }
 
     public void SetElementColor(GeoElement element, int i)
@@ -452,11 +461,10 @@ public abstract class Geometry
     {
         return circular.Circular();
     }
-
-/*    public Line Line(GeoCircular circular)
+    public Line Line(GeoLine line)
     {
-        return circular.Circular();
-    }*/
+        return line.Line();
+    }
 
     public Vector3 Direction(int from, int to)
     {

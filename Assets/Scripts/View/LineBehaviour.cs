@@ -21,8 +21,9 @@ public class LineBehaviour : ElementBehaviour
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startWidth = LINE_WIDTH;
         lineRenderer.endWidth = LINE_WIDTH;
-        lineRenderer.startColor = new Color(0.5f, 0.5f, 0.5f, 1f);
-        lineRenderer.endColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        Color color = new Color(Random.Range(0.0f,1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f),1f);
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
         positions = geoLine.Position();
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);

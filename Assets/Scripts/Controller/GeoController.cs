@@ -336,7 +336,6 @@ public class GeoController : MonoBehaviour
     public void RemoveCondition(Condition condition)
     {
         bool result = geometry.Constructor.RemoveCondition(condition);
-
         if (result)
         {
             stateController.RemoveConditionState(condition);
@@ -349,6 +348,11 @@ public class GeoController : MonoBehaviour
                     geometry.RemoveGizmo(gizmo);
                     geometryBehaviour.RemoveGizmo(gizmo);
                 }
+            }
+            if (condition is FunctionCondition) {
+                Function geo = (Function)geometry;
+                FunctionCondition func = (FunctionCondition)condition;
+                geometryBehaviour.RemoveElement(geo.Getline()[func.index-1]);
             }
         }
     }
@@ -1676,10 +1680,12 @@ public class GeoController : MonoBehaviour
 
     public void AddConditionOperation(Tool tool)
     {
-        if (state != GeoState.Normal)
-            return;
-        SetState(GeoState.Condition);
-
+        if (tool.Name != "Free")
+        {
+            if (state != GeoState.Normal)
+                return;
+            SetState(GeoState.Condition);
+        }
         currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
         currentOperation.Start();
     }
@@ -1715,9 +1721,13 @@ public class GeoController : MonoBehaviour
 
     public void RemoveConditionOperation(Condition condition)
     {
-        if (state != GeoState.Normal)
-            return;
-        SetState(GeoState.Condition);
+        FunctionCondition fun = (FunctionCondition)condition;
+        if (!(condition is FunctionCondition))
+        {
+            if (state != GeoState.Normal)
+                return;
+            SetState(GeoState.Condition);
+        }
 
         currentOperation = new RemoveConditionOperation(this, geometry, condition);
         currentOperation.Start();

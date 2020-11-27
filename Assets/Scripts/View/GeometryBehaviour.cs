@@ -73,6 +73,7 @@ public class GeometryBehaviour : MonoBehaviour
 
     public void InitGeometry(Geometry geo)
     {
+        Debug.Log("init");
         if (geometry != null && geometry.Type == GeometryType.Function)
             Clear(2);
         else
@@ -321,7 +322,7 @@ public class GeometryBehaviour : MonoBehaviour
     }
 
     //generate function line
-    private void AddLine(GeoLine geoLine)
+    public void AddLine(GeoLine geoLine)
     {
         GameObject planeObject = new GameObject(geoLine.ToString());
         planeObject.transform.SetParent(lineWrapper.transform);
@@ -366,6 +367,12 @@ public class GeometryBehaviour : MonoBehaviour
         circularBehaviour.SetData(geometry.Circular(geoCircular));
     }
 
+    private void UpdateLine(GeoLine geoLine)
+    {
+        LineBehaviour lineBehaviour = lineMap[geoLine];
+        //lineBehaviour.SetData(geometry.Line(geoLine));
+    }
+
     private void RemoveVertex(GeoVertex geoVertex)
     {
         VertexBehaviour vertexBehaviour = vertexMap[geoVertex];
@@ -399,6 +406,13 @@ public class GeometryBehaviour : MonoBehaviour
         CircularBehaviour circularBehaviour = circularMap[geoCircular];
         Destroy(circularBehaviour.gameObject);
         circularMap.Remove(geoCircular);
+    }
+
+    private void RemoveLine(GeoLine geoLine)
+    {
+        LineBehaviour lineBehaviour = lineMap[geoLine];
+        Destroy(lineBehaviour.gameObject);
+        lineMap.Remove(geoLine);
     }
 
     public int EdgeSize() {
@@ -831,6 +845,8 @@ public class GeometryBehaviour : MonoBehaviour
             UpdateCircle((GeoCircle)geoElement);
         else if (geoElement is GeoCircular)
             UpdateCircular((GeoCircular)geoElement);
+        else if (geoElement is GeoLine)
+            UpdateLine((GeoLine)geoElement);
     }
 
     public void RemoveElement(GeoElement geoElement)
@@ -845,6 +861,8 @@ public class GeometryBehaviour : MonoBehaviour
             RemoveCircle((GeoCircle)geoElement);
         else if (geoElement is GeoCircular)
             RemoveCircular((GeoCircular)geoElement);
+        else if (geoElement is GeoLine)
+            RemoveLine((GeoLine)geoElement);
     }
 
     public void AddGizmo(Gizmo gizmo)
@@ -884,6 +902,9 @@ public class GeometryBehaviour : MonoBehaviour
 
         foreach (KeyValuePair<GeoFace, FaceBehaviour> pair in faceMap)
             UpdateFace(pair.Key);
+
+        foreach (KeyValuePair<GeoLine, LineBehaviour> pair in lineMap)
+            UpdateLine(pair.Key);
     }
 
     public void UpdateGizmos()

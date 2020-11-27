@@ -4,20 +4,40 @@ using UnityEngine;
 
 public class Function : Geometry
 {
+    private int index;
+    private string currentfomula;
+    private List<GeoLine> lines;
     public override void Init()
     {
 
         base.Init();
 
         Name = "Function";
+        index = 0;
+        lines = new List<GeoLine>();
         Type = GeometryType.Function;
 
     }
 
-    public void SetWriting(Vector3[] pos) {
+    public void SetWriting(Vector3[] pos,string fomula) {
 
-        GeoLine line = new GeoLine(pos);
+        GeoLine line = new GeoLine(index, pos);
+        currentfomula = fomula;
+        lines.Add(line);
         AddGeoLine(line);
+        index += 1;
+    }
+
+    public string Getfoluma() {
+        return currentfomula;
+    }
+    public int Getindex()
+    {
+        return index;
+    }
+    public List<GeoLine> Getline()
+    {
+        return lines;
     }
 }
 
@@ -28,7 +48,7 @@ public class FunctionGeometryTool : GeometryTool
     public override Geometry GenerateGeometry()
     {
         Function geo = new Function();
-        //geo.Constructor = new ResolvedBodyConstructor(geo);
+        geo.Constructor = new FunctionConstructor(geo);
         //geo.Assistor = new Assistor(geo);
         //geo.Implement = new Implement(geo);
         geo.Init();

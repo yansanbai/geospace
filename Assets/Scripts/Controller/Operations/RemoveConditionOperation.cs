@@ -24,6 +24,9 @@ public class RemoveConditionOperation : Operation
         if (condition is RectangleCondition || condition is TriangleCondition) {
             geoController.ClearGeometry(3);
         }
+        if (condition is FunctionCondition) {
+            
+        }
 
         geoController.EndOperation();
     }

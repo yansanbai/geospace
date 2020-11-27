@@ -125,6 +125,7 @@ public class AddConditionOperation : Operation
         if (type != null)
         {
             ConditionState conditionState = (ConditionState)Activator.CreateInstance(type, tool, condition, geometry);
+            //É¾³ýº¯Êý£¿
             conditionState.OnClickDelete = () => geoController.RemoveConditionOperation(condition);
 
             stateController.AddConditionState(conditionState);

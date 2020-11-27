@@ -296,10 +296,12 @@ public class GeoCircular : GeoElement
 public class GeoLine : GeoElement
 {
     private Vector3[] positions;
-    public GeoLine( Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
+    private int Id;
+    public GeoLine( int id,Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
     {
         name = "Line";
         positions = pos;
+        Id = id;
     }
     /*    public Line Line()
         {
@@ -311,9 +313,13 @@ public class GeoLine : GeoElement
         return positions;
     }
 
+    public Line Line()
+    {
+        return new Line();
+    }
     public override string ToString()
     {
-        return string.Format("line");
+        return string.Format("line {0}", this.Id);
     }
 
     public override void AddObserveElements()

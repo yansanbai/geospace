@@ -613,10 +613,12 @@ public class PenBehaviour : ElementBehaviour
         {
             if (geometry != null && geometry.Type == GeometryType.Function)
             {
-                 Function function = (Function)geometry;
-                 function.SetWriting(positions);
-                 geometryBehaviour.InitGeometry(geometry);
-                 
+                Function function = (Function)geometry;
+                function.SetWriting(positions,command);
+                geometryBehaviour.AddLine(function.Getline()[function.Getindex()-1]);
+                Tool tool = new Tool();
+                tool.Name = "Free";
+                geoController.AddConditionOperation(tool);
             }
             else
             {
