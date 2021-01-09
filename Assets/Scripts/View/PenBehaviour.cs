@@ -425,7 +425,7 @@ public class PenBehaviour : ElementBehaviour
         }
         string base64 = System.Convert.ToBase64String(png.EncodeToPNG());
         string contents = Application.dataPath + "/temp";
-        string pngName = "image";
+        string pngName = "pen";
         byte[] bytes = png.EncodeToJPG();
         if (!Directory.Exists(contents))
             Directory.CreateDirectory(contents);
@@ -435,12 +435,12 @@ public class PenBehaviour : ElementBehaviour
         file.Close();
         Texture2D.DestroyImmediate(png);
         png = null;
-/*        string res = geoController.HandleRecognizeTick(base64);
+        string res = geoController.HandleRecognizeTick(base64);
         if (res=="tick") return 1;
         else if (res == "circle") return 2;
-        else return 0;*/
-        if (PenCount == 8) return 2;
-        return 0;
+        else return 0;
+        /*if (PenCount == 8) return 2;
+        return 0;*/
     }
 
     private bool IsValidDrawPoint(Vector3 point)
@@ -517,12 +517,6 @@ public class PenBehaviour : ElementBehaviour
         geoController.HandleRecognizeChange(base64, out res, out pos, out img);
         positions = pos;
         image = img;
-        if (res == "")
-            res = "空";
-
-        recognizePanel.AddWord(res);
-        recognizeResult = recognizePanel.GetWords() + res;
-
     }
 
 
@@ -580,20 +574,6 @@ public class PenBehaviour : ElementBehaviour
         file.Close();
         Texture2D.DestroyImmediate(png);
         png = null;
-        /*if (geometry!=null&&geometry.Type == GeometryType.Function)
-        {
-            string res;
-            Vector3[] pos;
-            string img;
-            geoController.HandleRecognizeFomula(base64,out res,out pos,out img);
-            positions = pos;
-            image = img;
-            return res;
-        }
-        else
-        {
-            return geoController.HandleRecognizeResult(base64);
-        }*/
         return base64;
     }
 

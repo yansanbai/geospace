@@ -226,7 +226,18 @@ public class RecognizeController : MonoBehaviour
         }
         else
         {
+            JObject jo = JObject.Parse(webRequest.downloadHandler.text);
             Debug.Log(webRequest.downloadHandler.text);
+            string result = (string)jo["data"]["latex"];
+            int length = ((JArray)jo["data"]["points"]).Count;
+            string image = (string)jo["data"]["image"];
+            Vector3[] positions = new Vector3[length];
+            for (int i = 0; i < length; i++)
+            {
+                positions[i][0] = (float)jo["data"]["points"][i][0];
+                positions[i][1] = (float)jo["data"]["points"][i][1];
+                positions[i][2] = 0;
+            }
         }
     }
 
