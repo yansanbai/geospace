@@ -20,7 +20,6 @@ public class Function : Geometry
     }
 
     public void SetWriting(Vector3[] pos,string fomula) {
-
         GeoLine line = new GeoLine(index, pos);
         currentfomula = fomula;
         lines.Add(line);
@@ -28,7 +27,7 @@ public class Function : Geometry
         index += 1;
     }
 
-    public string Getfoluma() {
+    public string Getfomula() {
         return currentfomula;
     }
     public int Getindex()

@@ -128,7 +128,8 @@ public class PenBehaviour : ElementBehaviour
     Pen prePen;
 
     //fomula
-    Vector3[] positions; 
+    Vector3[] positions;
+    string image;
 
 
     public void Init(GeoUI geoUI, GeoController geoController)
@@ -218,7 +219,7 @@ public class PenBehaviour : ElementBehaviour
 
     void Update()
     {
-        if (!Drawing)
+        /*if (!Drawing)
         {
             waitTime += Time.deltaTime;
             if (waitTime > MAX_TIME && pens.Count > 0)
@@ -233,7 +234,8 @@ public class PenBehaviour : ElementBehaviour
                 }
                 waitTime = 0;
             }
-        }
+        }*/
+        //生成新笔迹
         if (Input.GetMouseButtonDown(0))
         {
             pen = new Pen(PenCount++);
@@ -243,8 +245,6 @@ public class PenBehaviour : ElementBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 point = new Vector3(0, 0, 0);
-            //Vector3 point = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-            //point = ScaleHandwritingPoint(point);
             if (Drawing) {
                 point = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) - startPoint;
                 Vector3 fixPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
@@ -265,19 +265,22 @@ public class PenBehaviour : ElementBehaviour
                     i++;
                 }
             }
-            /*
-            if (!pen.GetPoints().Contains(point))
-            {
-                pen.AddPoint(point);
-                SetData(i, point);
-                i++;
-            }
-            */
             waitTime = 0;
         }
         if (Input.GetMouseButtonUp(0))
         {
+            //添加笔迹并检查是否是√或O
             AddPen(pen);
+            int res=CheckPen(pen);
+            if (res == 1)
+            {
+                AddFomula();
+            }
+            else if (res == 2) 
+            {
+                Debug.Log("测试到圈");
+                AddChange();
+            }
         }
     }
 
@@ -328,11 +331,6 @@ public class PenBehaviour : ElementBehaviour
             return;
         if (pen.GetPoints().Count <= 1)
             return;
-        // if (prePen != null && penWrapper.Find(prePen.ToString()) == null) {
-        //     AddPen(prePen);
-        // } else {
-        //     prePen = pen;
-        // }
         pens.Add(pen);
         GameObject penObject = new GameObject(pen.ToString());
         penObject.layer = LayerMask.NameToLayer(LAYER); ;
@@ -340,7 +338,6 @@ public class PenBehaviour : ElementBehaviour
         penObject.transform.SetParent(penWrapper.transform);
         rect.position = new Vector3(0, 0, 1);
         rect.localScale = new Vector3(1, 1, 1);
-        //rect.localScale = new Vector3(1f/factor_x, 1f/factor_x, 1f/factor_x);
 
         rect.pivot = new Vector2(0, 1);
         rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, penWrapper.rect.width);
@@ -355,9 +352,6 @@ public class PenBehaviour : ElementBehaviour
         if (Drawing)
         {
             List<Vector3> points = pen.GetPoints();
-            //Vector3 worldStart = points[0] + startPoint;
-            //Vector3 worldEnd = points[points.Count - 1] + startPoint;
-            // 修复缩放漂移, 固定在yoz平面
             Vector3 worldStart = points[0];
             Vector3 worldEnd = points[points.Count - 1];
             worldStart = ReductionScalePoint(worldStart);
@@ -388,6 +382,66 @@ public class PenBehaviour : ElementBehaviour
             }
         }
     }
+    private int CheckPen(Pen pen) {
+        List<Vector2> points = new List<Vector2>();
+        pen.GetPoints().ForEach(p =>
+       {
+            points.Add(new Vector2(p.x, p.y));
+        });
+        int border = 20;
+        int Thickness = 10;
+        int left = (int)penWrapper.rect.width;
+        int right = 0;
+        int top = (int)penWrapper.rect.height;
+        int bottom = 0;
+        points.ForEach(point =>
+        {
+            point += new Vector2(startPoint.x, startPoint.y);
+            left = Mathf.Min(left, (int)point.x);
+            right = Mathf.Max(right, (int)point.x);
+            top = Mathf.Min(top, (int)point.y);
+            bottom = Mathf.Max(bottom, (int)point.y);
+        });
+        int width = right - left + Thickness + 2 * border;
+        int height = bottom - top + Thickness + 2 * border;
+
+        Texture2D png = new Texture2D(width, height);
+        List<Vector3> positions = pen.GetPoints();
+        for (int i = 0; i < positions.Count - 1; i++)
+        {
+            Vector2 start = new Vector2(positions[i].x, positions[i].y) + new Vector2(startPoint.x, startPoint.y);
+            Vector2 end = new Vector2(positions[i + 1].x, positions[i + 1].y) + new Vector2(startPoint.x, startPoint.y);
+            List<Vector2> betweenPoints = GetPointsBetweenStartAndEnd(start, end);
+            foreach (Vector2 point in betweenPoints)
+            {
+                for (int m = 0; m < Thickness; m++)
+                {
+                    for (int n = 0; n < Thickness; n++)
+                    {
+                        png.SetPixel((int)point.x - left + m + border, (int)point.y - top + n + border, new Color(0, 0, 0, 1));
+                    }
+                }
+            }
+        }
+        string base64 = System.Convert.ToBase64String(png.EncodeToPNG());
+        string contents = Application.dataPath + "/temp";
+        string pngName = "image";
+        byte[] bytes = png.EncodeToJPG();
+        if (!Directory.Exists(contents))
+            Directory.CreateDirectory(contents);
+        FileStream file = File.Open(contents + "/" + pngName + ".jpg", FileMode.Create);
+        BinaryWriter writer = new BinaryWriter(file);
+        writer.Write(bytes);
+        file.Close();
+        Texture2D.DestroyImmediate(png);
+        png = null;
+/*        string res = geoController.HandleRecognizeTick(base64);
+        if (res=="tick") return 1;
+        else if (res == "circle") return 2;
+        else return 0;*/
+        if (PenCount == 8) return 2;
+        return 0;
+    }
 
     private bool IsValidDrawPoint(Vector3 point)
     {
@@ -417,7 +471,8 @@ public class PenBehaviour : ElementBehaviour
         Word word = new Word(WordCount++, new List<Pen>(pens));
         words.Add(word);
         pens.Clear();
-        string res = PointsToBitmap(word).Replace(" ", "");
+        string base64= PointsToBitmap(word).Replace(" ", "");
+        string res = geoController.HandleRecognizeResult(base64);
         if (res == "")
             res = "空";
 
@@ -427,10 +482,41 @@ public class PenBehaviour : ElementBehaviour
 
     private void AddFomula()
     {
-        Word word = new Word(WordCount++, new List<Pen>(pens));
+        List<Pen> pen1=pens;
+        pen1.Remove(pen);
+        Word word = new Word(WordCount++, new List<Pen>(pen1));
         words.Add(word);
         pens.Clear();
-        string res = PointsToBitmap(word);
+        string base64 = PointsToBitmap(word).Replace(" ", "");
+        string res;
+        Vector3[] pos;
+        string img;
+        geoController.HandleRecognizeFomula(base64, out res, out pos, out img);
+        positions = pos;
+        image = img;
+        if (res == "")
+            res = "空";
+        recognizePanel.AddWord(res);
+        recognizeResult = recognizePanel.GetWords() + res;
+        if(res!="空")
+            recognizePanel.AddImage(image);
+
+    }
+
+    private void AddChange()
+    {
+        List<Pen> pen1 = pens;
+        pen1.Remove(pen);
+        Word word = new Word(WordCount++, new List<Pen>(pen1));
+        words.Add(word);
+        pens.Clear();
+        string base64 = PointsToBitmap(word).Replace(" ", "");
+        string res;
+        Vector3[] pos;
+        string img;
+        geoController.HandleRecognizeChange(base64, out res, out pos, out img);
+        positions = pos;
+        image = img;
         if (res == "")
             res = "空";
 
@@ -494,18 +580,21 @@ public class PenBehaviour : ElementBehaviour
         file.Close();
         Texture2D.DestroyImmediate(png);
         png = null;
-        if (geometry!=null&&geometry.Type == GeometryType.Function)
+        /*if (geometry!=null&&geometry.Type == GeometryType.Function)
         {
             string res;
             Vector3[] pos;
-            geoController.HandleRecognizeFomula(base64,out res,out pos);
+            string img;
+            geoController.HandleRecognizeFomula(base64,out res,out pos,out img);
             positions = pos;
+            image = img;
             return res;
         }
         else
         {
             return geoController.HandleRecognizeResult(base64);
-        }
+        }*/
+        return base64;
     }
 
     private List<Vector2> GetPointsBetweenStartAndEnd(Vector2 start, Vector2 end)

@@ -74,7 +74,7 @@ public class GeometryBehaviour : MonoBehaviour
     public void InitGeometry(Geometry geo)
     {
         Debug.Log("init");
-        if (geometry != null && geometry.Type == GeometryType.Function)
+        if (geo != null && geo.Type == GeometryType.Function)
             Clear(2);
         else
             Clear(3);

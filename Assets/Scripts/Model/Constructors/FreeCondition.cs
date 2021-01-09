@@ -37,7 +37,7 @@ public class FreeConditionTool : FunctionConditionTool
         if (!valid)
             return null;
 
-        FreeCondition condition = new FreeCondition(func.Getfoluma(),func.Getindex());
+        FreeCondition condition = new FreeCondition(func.Getfomula(),func.Getindex());
 
         return condition;
     }
@@ -66,7 +66,7 @@ public class FreeConditionState : ConditionState
     {
         FormInput formInput = new FormInput(1);
 
-        formInput.inputs[0] = new FormText("手写函数："+condition.fomula);
+        formInput.inputs[0] = new FormText(condition.fomula);
 
         return formInput;
     }

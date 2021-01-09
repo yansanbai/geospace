@@ -22,8 +22,8 @@ public class LineBehaviour : ElementBehaviour
         lineRenderer.startWidth = LINE_WIDTH;
         lineRenderer.endWidth = LINE_WIDTH;
         Color color = new Color(Random.Range(0.0f,1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f),1f);
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
+        lineRenderer.startColor = new Color(0.5f,0.5f,0.5f,1);
+        lineRenderer.endColor = new Color(0.5f, 0.5f, 0.5f, 1);
         positions = geoLine.Position();
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
