@@ -73,7 +73,7 @@ public class Word
 public class PenBehaviour : ElementBehaviour
 {
     const string LAYER = "UI";
-    const float MAX_TIME = 2f;
+    const float MAX_TIME = 1f;
     const float ValidDiff = 0.4f;
     // const float WorldValidDiff 
 
@@ -219,22 +219,19 @@ public class PenBehaviour : ElementBehaviour
 
     void Update()
     {
-        /*if (!Drawing)
+        if (!Drawing)
         {
             waitTime += Time.deltaTime;
             if (waitTime > MAX_TIME && pens.Count > 0)
             {
-                if (geometry!=null&&geometry.Type == GeometryType.Function)
-                {
+                if (geometry.Type == GeometryType.Function) {
                     AddFomula();
-                }
-                else
-                {
+                }else{
                     AddWord();
                 }
                 waitTime = 0;
             }
-        }*/
+        }
         //生成新笔迹
         if (Input.GetMouseButtonDown(0))
         {
@@ -271,16 +268,26 @@ public class PenBehaviour : ElementBehaviour
         {
             //添加笔迹并检查是否是√或O
             AddPen(pen);
-            int res=CheckPen(pen);
-            if (res == 1)
+            /*if (geometry != null && geometry.Type == GeometryType.Function)
             {
-                AddFomula();
-            }
-            else if (res == 2) 
-            {
-                Debug.Log("测试到圈");
-                AddChange();
-            }
+                int res = CheckPen(pen);
+                if (res == 1)
+                {
+                    if (geometry != null && geometry.Type == GeometryType.Function)
+                    {
+                        AddFomula();
+                    }
+                    else
+                    {
+                        AddWord();
+                    }
+                }
+                else if (res == 2)
+                {
+                    Debug.Log("测试到圈");
+                    AddChange();
+                }
+            }*/
         }
     }
 
@@ -348,7 +355,6 @@ public class PenBehaviour : ElementBehaviour
         curLineRenderer.SetPositions(pen.GetPoints().ToArray());
         curLineRenderer.Simplify(1);
         penMap.Add(pen, penObject);
-
         if (Drawing)
         {
             List<Vector3> points = pen.GetPoints();
@@ -439,8 +445,6 @@ public class PenBehaviour : ElementBehaviour
         if (res=="tick") return 1;
         else if (res == "circle") return 2;
         else return 0;
-        /*if (PenCount == 8) return 2;
-        return 0;*/
     }
 
     private bool IsValidDrawPoint(Vector3 point)
@@ -482,9 +486,7 @@ public class PenBehaviour : ElementBehaviour
 
     private void AddFomula()
     {
-        List<Pen> pen1=pens;
-        pen1.Remove(pen);
-        Word word = new Word(WordCount++, new List<Pen>(pen1));
+        Word word = new Word(WordCount++, new List<Pen>(pens));
         words.Add(word);
         pens.Clear();
         string base64 = PointsToBitmap(word).Replace(" ", "");
@@ -495,31 +497,82 @@ public class PenBehaviour : ElementBehaviour
         positions = pos;
         image = img;
         if (res == "")
+        {
             res = "空";
-        recognizePanel.AddWord(res);
-        recognizeResult = recognizePanel.GetWords() + res;
-        if(res!="空")
+            recognizePanel.AddEmpty();
+        }
+        else if (res.Contains("\\rightarrow"))
+        {
+            AddChange(word);
+        }
+        else {
+            recognizePanel.AddWord(res);
+            recognizeResult = recognizePanel.GetWords() + res;
             recognizePanel.AddImage(image);
-
+        }
+       
     }
 
-    private void AddChange()
+    private void AddChange(Word word)
     {
-        List<Pen> pen1 = pens;
-        pen1.Remove(pen);
-        Word word = new Word(WordCount++, new List<Pen>(pen1));
-        words.Add(word);
-        pens.Clear();
         string base64 = PointsToBitmap(word).Replace(" ", "");
-        string res;
-        Vector3[] pos;
-        string img;
-        geoController.HandleRecognizeChange(base64, out res, out pos, out img);
-        positions = pos;
-        image = img;
+        geoController.HandleRecognizeChange(base64);
     }
 
+    public void ExecuteChange(string result,Vector3[] positions) {
+        if (result == "")
+        {
+            Debug.Log("识别失败");
+            recognizePanel.Clear();
+            Clear();
+        }
+        else
+        {
+            /*transform.parent.gameObject.SetActive(false);
+            recognizePanel.Clear();
+            Clear();
+            geometryBehaviour.clearElements();
+            geometry.Clear();
+            Function function = (Function)geometry;
+            function.SetWriting(positions, result);
+            geometryBehaviour.AddElements();
+            geometryBehaviour.SetEdgeStyle();
+            geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));*/
+            recognizePanel.Clear();
+            Clear();
+            Function function = (Function)geometry;
+            function.SetWriting(positions, result);
+            geometryBehaviour.AddElements();
+            geometryBehaviour.SetEdgeStyle();
+            Tool tool = new Tool();
+            tool.Name = "Free";
+            FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
+            int byteLength = (int)fs.Length;
+            byte[] imgBytes = new byte[byteLength];
+            fs.Read(imgBytes, 0, byteLength);
+            fs.Close();
+            fs.Dispose();
+            Texture2D texture = new Texture2D(40, 40, TextureFormat.RGBA32, false);
+            texture.LoadImage(imgBytes);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            tool.Icon = sprite;
+            geoController.AddConditionOperation(tool);
+            geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
 
+        }
+    }
+    public Sprite ToSprite(string path) {
+        FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+        int byteLength = (int)fs.Length;
+        byte[] imgBytes = new byte[byteLength];
+        fs.Read(imgBytes, 0, byteLength);
+        fs.Close();
+        fs.Dispose();
+        Texture2D texture = new Texture2D(200, 60, TextureFormat.RGBA32, false);
+        texture.LoadImage(imgBytes);
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        return sprite;
+    }
 
     private string PointsToBitmap(Word word)
     {
@@ -666,6 +719,7 @@ public class PenBehaviour : ElementBehaviour
         lockButton.SetStatus(0);
         recognizeResult = "";
         navPanel.SetWritingButtonStatus(0);
+        SetData(0, new Vector3(0,0,0));
     }
 
     private void ClickSubmit()
@@ -684,10 +738,22 @@ public class PenBehaviour : ElementBehaviour
             {
                 Function function = (Function)geometry;
                 function.SetWriting(positions,command);
-                geometryBehaviour.AddLine(function.Getline()[function.Getindex()-1]);
+                geometryBehaviour.AddElements();
+                geometryBehaviour.SetEdgeStyle();
                 Tool tool = new Tool();
                 tool.Name = "Free";
+                FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
+                int byteLength = (int)fs.Length;
+                byte[] imgBytes = new byte[byteLength];
+                fs.Read(imgBytes, 0, byteLength);
+                fs.Close();
+                fs.Dispose();
+                Texture2D texture = new Texture2D(40 ,40, TextureFormat.RGBA32, false);
+                texture.LoadImage(imgBytes);
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                tool.Icon = sprite;
                 geoController.AddConditionOperation(tool);
+                geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
             }
             else
             {
@@ -695,10 +761,8 @@ public class PenBehaviour : ElementBehaviour
             }
         }
     }
-
     private void ClickCancel()
     {
-        Debug.Log("取消");
         transform.parent.gameObject.SetActive(false);
         recognizePanel.Clear();
         Clear();

@@ -239,6 +239,7 @@ public class GeoController : MonoBehaviour
 
     public void ClearGeometry(int dimension)
     {
+
         this.geometry = null;
 
         toolController.SetIsGeometry(false);
@@ -260,6 +261,7 @@ public class GeoController : MonoBehaviour
         }
 
         this.geometry = geometry;
+
         geometryBehaviour.InitGeometry(geometry);
         geometryBehaviour.SetShadeType(shadeType);
 
@@ -480,18 +482,12 @@ public class GeoController : MonoBehaviour
         img = image;
     }
 
-    public void HandleRecognizeChange(string base64, out string res, out Vector3[] pos, out string img)
+    public void HandleRecognizeChange(string base64)
     {
-        string result;
-        Vector3[] positions;
-        string image;
         Function func = (Function)this.geometry;
-        //string currentfomula = func.Getfomula();
-        string currentfomula = "y=x+1";
-        recognizeController.GetRecognizeChange(base64, currentfomula,out result, out positions, out image);
-        res = result;
-        pos = positions;
-        img = image;
+        string currentfomula = func.Getfomula();
+        //string currentfomula = "y=x+1";
+        recognizeController.GetRecognizeChange(base64, currentfomula);
     }
 
     public string HandleRecognizeTick(string base64)
@@ -1775,4 +1771,10 @@ public class GeoController : MonoBehaviour
     }
 
     #endregion
+
+    public void ChangeConditionState(Sprite sprite) {
+        StateCell cell = stateController.GetConditionState();
+
+        cell.SetImage(sprite);
+    }
 }

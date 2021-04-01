@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using XANTools;
 
 public class TestController : MonoBehaviour
 {
     private List<GameObject> questions;
     public GameObject QuestionPanel;
+    public GameObject Content;
     public GameObject Panel;
     public GameObject Question;
     private int index;
     public GameObject queprefab;
+    public ResizePanel resize;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +34,21 @@ public class TestController : MonoBehaviour
     public void PackupQuestionPanel()
     {
         //收起试题集面板
-        QuestionPanel.SetActive(false);
+        if (Content.activeSelf)
+        {
+            Content.SetActive(false);
+            resize.SetResize(false);
+        }
+        else {
+            Content.SetActive(true);
+            resize.SetResize(true);
+        }
     }
     public void ShutQuestionPanel()
     {
         //关闭试题集
         QuestionPanel.SetActive(false);
+        Clear();
     }
     public void AddQuestion()
     {
@@ -59,10 +72,12 @@ public class TestController : MonoBehaviour
         Refresh();
     }
     public void DeleteQuestion(GameObject question) {
+        //删除试题
         questions.Remove(question);
         Refresh();
     }
     public void Refresh() {
+        //刷新试题列表
         for (int i = 0; i < questions.Count; i++)
         {
             questions[i].transform.localPosition = new Vector3(0, 160 - 80 * i, 0);
@@ -74,19 +89,11 @@ public class TestController : MonoBehaviour
         Question.SetActive(false);
         Panel.SetActive(true);
     }
-    /*public void Packup()
-    {
-        if (index == 0)
-        {
-            image.SetActive(false);
-            back.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 80);
-            index = 1;
-        }
-        else
-        {
-            image.SetActive(true);
-            back.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, image.GetComponent<RectTransform>().rect.height + 100);
-            index = 0;
-        }
-    }*/
+    public void Clear() {
+        QuestionPanel.transform.localScale = new Vector3(1, 1, 1);
+        QuestionPanel.transform.localPosition = new Vector3(-150, 0, 0);
+        resize.Clear();
+        Question.SetActive(false);
+        Panel.SetActive(true);
+    }
 }

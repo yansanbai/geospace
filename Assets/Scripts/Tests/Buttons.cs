@@ -24,8 +24,8 @@ public class Buttons : MonoBehaviour
         test.ShutQuestionPanel();
     }
 
-    public void Packup() { 
-
+    public void Packup() {
+        test.PackupQuestionPanel();
     }
     public void Add() {
         test.AddQuestion();

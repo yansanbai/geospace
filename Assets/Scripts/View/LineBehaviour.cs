@@ -29,14 +29,21 @@ public class LineBehaviour : ElementBehaviour
         lineRenderer.SetPositions(positions);
     }
 
-    public void SetData(Vector3 v1, Vector3 v2, Vector3 v3)
-    {
-        vertex2 = v1 + (v2 - v1) * LINE_LENGTH;
-        vertex3 = v1 + (v3 - v1) * LINE_LENGTH;
-        vertex1 = v1 + vertex2 + vertex3;
+    public void ChangeData(Vector3[] positions) {
+        lineRenderer = gameObject.GetComponent<LineRenderer>();
+        lineRenderer.positionCount = positions.Length;
+        lineRenderer.SetPositions(positions);
+    }
 
-        lineRenderer.SetPosition(0, vertex2);
-        lineRenderer.SetPosition(1, vertex1);
-        lineRenderer.SetPosition(2, vertex3);
+    public void ChangeColor(int i) {
+        if (i == 1)
+        {
+            lineRenderer.startColor = new Color(1f, 0.8392157f, 0.4627451f, 1);
+            lineRenderer.endColor = new Color(1f, 0.8392157f, 0.4627451f, 1);
+        }
+        else {
+            lineRenderer.startColor = new Color(0.5f, 0.5f, 0.5f, 1);
+            lineRenderer.endColor = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
     }
 }

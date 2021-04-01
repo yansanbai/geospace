@@ -30,6 +30,7 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     Button btnToggle;
     Button btnDelete;
     Text text;
+    Image image;
     Boolean isHighlighted = false;
 
     public void Init()
@@ -47,6 +48,7 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         btnDelete.onClick.AddListener(DeleteButtonClicked);
 
         text = transform.Find("Text").GetComponent<Text>();
+        image= transform.Find("Image").GetComponent<Image>();
     }
 
 
@@ -63,6 +65,13 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         text.text = str;
 
+    }
+
+    public void SetImage(Sprite sprite) {
+        image.sprite = sprite;
+        image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (sprite.rect.width / sprite.rect.height) * 40);
+        image.gameObject.transform.localPosition= new Vector3(image.gameObject.GetComponent<RectTransform>().rect.width/2-100, -40, 0);
+        image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void SetIcon(Sprite sprite)
@@ -110,8 +119,9 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void ToggleButtonDoubleClicked()
     {
-        
-        if(isHighlighted == true)
+
+        Debug.Log("stateCell点击图标");
+        if (isHighlighted == true)
         {
             if(UndoFaceHighlight != null)
             UndoFaceHighlight();

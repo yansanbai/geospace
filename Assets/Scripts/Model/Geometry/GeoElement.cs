@@ -297,16 +297,12 @@ public class GeoLine : GeoElement
 {
     private Vector3[] positions;
     private int Id;
-    public GeoLine( int id,Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
+    public GeoLine(int id, Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
     {
         name = "Line";
         positions = pos;
         Id = id;
     }
-    /*    public Line Line()
-        {
-            return new Line(positions);
-        }*/
 
     public Vector3[] Position()
     {

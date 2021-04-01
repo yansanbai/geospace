@@ -229,6 +229,18 @@ public abstract class Geometry
             AddGeoLine((GeoLine)element);
     }
 
+    public void Clear() {
+        vertexId = 0;
+        geoVertices.Clear();
+        geoEdges.Clear();
+        geoFaces.Clear();
+        geoCircles.Clear();
+        geoCirculars.Clear();
+        geoLines.Clear();
+        vertices.Clear();
+    }
+
+
     public void AddGeoVertex(GeoVertex vertex)
     {
         geoVertices.Add(vertex);

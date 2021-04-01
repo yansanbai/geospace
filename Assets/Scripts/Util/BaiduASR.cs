@@ -12,8 +12,8 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     //百度语音识别相关key
     //string appId = "";
-    string apiKey = "ucGYluog9kwYBq21Ets2E2M0";              //填写自己的apiKey
-    string secretKey = "gqwrUIXxMUL9jGakHwSqgRHfVp20PWmH";         //填写自己的secretKey
+    string apiKey = "9BuGBVp0eegORP8hZnTz11U3";              //填写自己的apiKey
+    string secretKey = "OuNbPQvwfx8DYLznBYaqedvGHVplWIZs";         //填写自己的secretKey
 
     //记录accesstoken令牌
     string accessToken = string.Empty;
@@ -126,6 +126,8 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         //向上取整,避免遗漏录音末尾
         return Mathf.CeilToInt((float)(GetTimestampOfNowWithMillisecond() - lastPressTimestamp) / 1000f);
+
+
     }
 
     /// <summary>
@@ -164,6 +166,8 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
+        //audioSource.clip = saveAudioClip;
+        //audioSource.Play();
         //textBtn.text = "按住说话";
         // Debug.Log("按住说话");
         trueLength = EndRecording();
@@ -224,6 +228,7 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         //处理当前录音数据为PCM16
         float[] samples = new float[recordFrequency * trueLength * saveAudioClip.channels];
+
         saveAudioClip.GetData(samples, 0);
         var samplesShort = new short[samples.Length];
         for (var index = 0; index < samples.Length; index++)
@@ -231,8 +236,8 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             samplesShort[index] = (short)(samples[index] * short.MaxValue);
         }
         byte[] datas = new byte[samplesShort.Length * 2];
+        
         Buffer.BlockCopy(samplesShort, 0, datas, 0, datas.Length);
-
         string url = string.Format("{0}?cuid={1}&token={2}", "https://vop.baidu.com/server_api", SystemInfo.deviceUniqueIdentifier, accessToken);
 
         WWWForm wwwForm = new WWWForm();
@@ -247,6 +252,7 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (string.IsNullOrEmpty(unityWebRequest.error))
         {
             asrResult = unityWebRequest.downloadHandler.text;
+            Debug.Log(asrResult);
             if (Regex.IsMatch(asrResult, @"err_msg.:.success"))
             {
                 Match match = Regex.Match(asrResult, "result.:..(.*?)..]");

@@ -59,31 +59,12 @@ public class readImage : MonoBehaviour
     }
     IEnumerator Load(string path)
     {
-        double startTime = (double)Time.time;
         WWW www = new WWW("file:///" + path);
-        yield return www;
-        if (www != null && string.IsNullOrEmpty(www.error))
-        {
-            //获取Texture
             Texture2D texture = www.texture;
             string[] array = path.Split('\\');
             array = array[array.Length - 1].Split('.');
             string name = array[0];
-            Debug.Log(name);
-            //更多操作...
-            //直接将选择图保存
-            /*            byte[] bytes = texture.EncodeToJPG();
-                        string filename = @"C:\fast-neural-style-tensorflow-master\img\Screenshot.jpg";
-                        System.IO.File.WriteAllBytes(filename, bytes);*/
             test.CreateQuestion(name,texture);
-            /*Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            image.sprite = sprite;
-            img.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, texture.width);
-            img.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, texture.height);
-            back.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, texture.width+100);
-            back.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, texture.height+100);
-            question.SetActive(true);
-            startTime = (double)Time.time - startTime;*/
-        }
+        yield return www;
     }
 }

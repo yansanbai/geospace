@@ -34,6 +34,7 @@ public class InputPanel : MonoBehaviour
 
     FormInput form;
 
+    public GameObject keyboard;
     public void Init()
     {
         frame = transform.Find("Frame").GetComponent<Image>();
@@ -251,6 +252,7 @@ public class InputPanel : MonoBehaviour
 
     private void ClickSubmit()
     {
+        keyboard.SetActive(false);
         if (state != InputPanelState.Valid)
             return;
 
@@ -260,6 +262,7 @@ public class InputPanel : MonoBehaviour
 
     public void ClickCancel()
     {
+        keyboard.SetActive(false);
         if (state == InputPanelState.Normal)
             return;
 
@@ -279,6 +282,7 @@ public class InputPanel : MonoBehaviour
 
     private InputElement AddInputElement(FormElement formElement)
     {
+        keyboard.SetActive(true);
         GameObject go = GameObject.Instantiate(InputElementPrefab.gameObject);
         go.transform.SetParent(transform, false);
 

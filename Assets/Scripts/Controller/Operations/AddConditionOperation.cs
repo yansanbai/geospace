@@ -128,6 +128,13 @@ public class AddConditionOperation : Operation
             //删除函数？
             conditionState.OnClickDelete = () => geoController.RemoveConditionOperation(condition);
 
+            conditionState.OnElementHighlight = () =>
+            {
+                //获取当前state对应的geoline，让behaviour调用
+                FreeCondition free = (FreeCondition)condition;
+                geometryBehaviour.HighlightLine(free.index - 1);
+                Debug.Log(free.index-1);
+            };
             stateController.AddConditionState(conditionState);
         }
     }

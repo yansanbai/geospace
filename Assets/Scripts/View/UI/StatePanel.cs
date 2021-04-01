@@ -18,7 +18,6 @@ public class StatePanel : MonoBehaviour
     public void AddStateCell(State state, int color)
     {
         StateCell stateCell = InitStateCell(state);
-
         stateCellsMap.Add(state, stateCell);
 
         stateCell.OnClickDelete = () =>
@@ -29,6 +28,7 @@ public class StatePanel : MonoBehaviour
 
         stateCell.UndoFaceHighlight = () =>
         {
+
             if (state.UndoFaceHighlight != null)
                 state.UndoFaceHighlight();
         };
@@ -44,6 +44,7 @@ public class StatePanel : MonoBehaviour
         
         stateCell.DoubleClick = () =>
         {
+            //Debug.Log("statePanel点击图标");
             if(state.DoubleClick != null)
                 state.DoubleClick();
         };
@@ -117,6 +118,10 @@ public class StatePanel : MonoBehaviour
     private void SetCellTintColor(StateCell stateCell, int color)
     {
         stateCell.SetTintColor(StyleManager.Themes[color]);
+    }
+    //根据state获取statecell
+    public StateCell FindState(State state) {
+        return stateCellsMap[state];
     }
 
 }

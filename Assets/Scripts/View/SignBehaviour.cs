@@ -125,8 +125,8 @@ public class SignBehaviour : MonoBehaviour
     private void SetText()
     {
         int subSize = UIConstants.TextFontSubSize;
-        textMesh.text = UIConstants.SignFormat(sign, subSize);
-
+        //textMesh.text = UIConstants.SignFormat(sign, subSize);
+        textMesh.text = sign;
         Bounds textBounds = textRenderer.bounds;
 
         MaterialPropertyBlock prop = new MaterialPropertyBlock();

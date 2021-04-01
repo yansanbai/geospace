@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Drawing;
 using System.IO;
@@ -30,6 +31,10 @@ public class RecognizeController : MonoBehaviour
         this.writingPanel = writingPanel;
     }
 
+    public void Update()
+    {
+        
+    }
     private static string FilterChar(string input)
     {
         Regex r = new Regex("^[0-9]{1,}$"); //正则表达式 表示数字的范围 ^符号是开始，$是关闭
@@ -90,7 +95,7 @@ public class RecognizeController : MonoBehaviour
             //     data.Add(pair.Key + "=" + pair.Value);
             // string json = HttpPost(url, string.Join("&", data.ToArray()));
             // Debug.Log(json);
-            var regex = new Regex(
+            /*var regex = new Regex(
                "\"words\": \"(?<word>[\\s\\S]*?)\"",
                RegexOptions.CultureInvariant
                | RegexOptions.Compiled
@@ -101,14 +106,17 @@ public class RecognizeController : MonoBehaviour
                 recognize.AppendLine(match.Groups["word"].Value.Trim());
             }
 
-            String res = recognize.ToString();
+            String res = recognize.ToString();*/
+
             // 去除其中换行符，空格，制表符
             // res = res.Replace("\n", "").Replace(" ","").Replace("\t","").Replace("\r","");
             // 只保留数字、字母、汉字
-            res = FilterChar(res);
-
+            /*res = FilterChar(res);*/
+            JObject jo = JObject.Parse(result);
+            string res = (string)jo["words_result"][0]["words"];
+            //Debug.Log(res);
             // 输出测试
-            Debug.Log("识别结果：" + res + ", bytelen=" + System.Text.Encoding.Default.GetByteCount(res) + ", charlen=" + res.Length);
+            //Debug.Log("识别结果：" + res + ", bytelen=" + System.Text.Encoding.Default.GetByteCount(res) + ", charlen=" + res.Length);
             // char[] arr = res.ToCharArray();
 
             // 平台判断
@@ -142,10 +150,10 @@ public class RecognizeController : MonoBehaviour
             Encoding encoding = Encoding.Default;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host);
             request.Method = "post";
-            request.KeepAlive = true;
-            request.Proxy=null;
-            var regex = new Regex("data:image/w+;base64,");
-            base64 = regex.Replace(base64, "");
+            request.KeepAlive = false;
+            request.Timeout=10000;
+            //request.Proxy=null;
+
             byte[] buffer = encoding.GetBytes(base64);
             request.ContentLength = buffer.Length;
             Stream stream = request.GetRequestStream();
@@ -162,12 +170,17 @@ public class RecognizeController : MonoBehaviour
             return "";
         }
     }
+    public string stop() {
+        return "";
+    }
     public void GetRecognizeFomula(string base64,out string result,out Vector3[] positions, out string image)
     {
         result = "";
         positions = new Vector3[10];
         image = "";
-        string str=TryRecognize(base64, "http://172.19.241.159:500/convertUnity");
+        var regex = new Regex("data:image/w+;base64,");
+        base64 = regex.Replace(base64, "");
+        string str=TryRecognize(base64, "http://120.27.145.45:5000/convertUnity");
         if (str != "")
         {
             JObject jo = JObject.Parse(str);
@@ -178,7 +191,6 @@ public class RecognizeController : MonoBehaviour
                 int length = ((JArray)jo["data"]["points"]).Count;
                 image = (string)jo["data"]["image"];
                 positions = new Vector3[length];
-                Debug.Log(length);
                 for (int i = 0; i < length; i++)
                 {
                     positions[i][0] = (float)jo["data"]["points"][i][0];
@@ -187,27 +199,12 @@ public class RecognizeController : MonoBehaviour
                 }
             }
         }
-        /* result = "y=sin2(x+π/3)";
-        positions = new Vector3[100];
-        double x = -5;
-        double y = System.Math.Sin(2*(x + System.Math.PI/3));
-        for (int i = 0; i < 100; i++)
-        {
-            positions[i][0] = (float)x;
-            positions[i][1] = (float)y;
-            positions[i][2] = 0;
-            x = x + 0.1d;
-            y = System.Math.Sin(2 * (x + System.Math.PI / 3));
-        }*/
     }
 
-    public void GetRecognizeChange(string base64, string fomula,out string result, out Vector3[] positions, out string image)
+    public void GetRecognizeChange(string base64, string fomula)
     {
-        result = "";
-        positions = new Vector3[10];
-        image = "";
+        penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
         StartCoroutine(Post(base64,fomula));
-
     }
 
     IEnumerator Post(string base64,string fomula)
@@ -217,100 +214,52 @@ public class RecognizeController : MonoBehaviour
         form.AddField("image", base64);
         form.AddField("latex", fomula);
         //请求链接，并将form对象发送到远程服务器
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://172.19.241.159:500/transform", form);
-
+        UnityWebRequest webRequest = UnityWebRequest.Post("http://120.27.145.45:5000/transform", form);
         yield return webRequest.SendWebRequest();
+        string result = "";
+        string image = "";
+        Vector3[] positions = new Vector3[10];
         if (webRequest.isHttpError || webRequest.isNetworkError)
         {
             Debug.Log(webRequest.error);
+            penBehaviour.ExecuteChange(result, positions);
         }
         else
         {
+
             JObject jo = JObject.Parse(webRequest.downloadHandler.text);
             Debug.Log(webRequest.downloadHandler.text);
-            string result = (string)jo["data"]["latex"];
-            int length = ((JArray)jo["data"]["points"]).Count;
-            string image = (string)jo["data"]["image"];
-            Vector3[] positions = new Vector3[length];
-            for (int i = 0; i < length; i++)
+            if ((int)jo["code"] != -1)
             {
-                positions[i][0] = (float)jo["data"]["points"][i][0];
-                positions[i][1] = (float)jo["data"]["points"][i][1];
-                positions[i][2] = 0;
+                result = (string)jo["data"]["latex"];
+                int length = ((JArray)jo["data"]["points"]).Count;
+                image = (string)jo["data"]["image"];
+                positions = new Vector3[length];
+                for (int i = 0; i < length; i++)
+                {
+                    positions[i][0] = (float)jo["data"]["points"][i][0];
+                    positions[i][1] = (float)jo["data"]["points"][i][1];
+                    positions[i][2] = 0;
+                }
+                byte[] data = System.Convert.FromBase64String(image);
+                FileStream file = File.Open(Application.dataPath + "/temp/fomula.png", FileMode.Create);
+                BinaryWriter writer = new BinaryWriter(file);
+                writer.Write(data);
+                file.Close();
+                file.Dispose();
             }
+            penBehaviour.ExecuteChange(result,positions);
         }
     }
 
     public string GetRecognizeTick(string base64)
     {
-        string str= TryRecognize(base64, "http://39.98.91.176:5000/circle_tick_recongize");
+        string str= TryRecognize(base64, "http://121.196.158.2:5000/circle_tick_recongize");
         JObject jo = JObject.Parse(str);
         string res = (string)jo["data"]["result"];
         return res;
     }
-    public string HttpUploadFile(string url, string file, string paramName, string contentType)
-    {
-        string result = string.Empty;
-        string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
-        byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
 
-        try { 
-            HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
-            wr.ContentType = "multipart/form-data; boundary=" + boundary;
-            wr.Method = "POST";
-            wr.KeepAlive = true;
-           
-            StringBuilder sb = new StringBuilder();
-            sb.Append("--");
-            sb.Append(boundary);
-            sb.Append(Environment.NewLine);
-            sb.Append("Content-Disposition: form-data; name=\"");
-            sb.Append("file");
-            sb.Append("\"; filename=\"");
-            sb.Append(file);
-            sb.Append("\"");
-            sb.Append(Environment.NewLine);
-            sb.Append("Content-Type: ");
-            sb.Append("multipart/form-data;");
-            sb.Append(Environment.NewLine);
-            sb.Append(Environment.NewLine);
-            byte[] postHeaderBytes = Encoding.UTF8.GetBytes(sb.ToString());
-            
-            //文件流
-            FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[4096];
-            int bytesRead = 0;
-
-            //报文长度
-            long length = postHeaderBytes.Length + fileStream.Length + boundarybytes.Length;
-            wr.ContentLength = length;
-
-            //写入
-            Stream rs = wr.GetRequestStream();
-            rs.Write(postHeaderBytes, 0, postHeaderBytes.Length);
-            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
-            {
-                rs.Write(buffer, 0, bytesRead);
-            }
-            fileStream.Close();
-
-            rs.Write(boundarybytes, 0, boundarybytes.Length);
-            rs.Close();
-
-            //响应
-            WebResponse wresp = null;
-            wresp = wr.GetResponse();
-            Stream stream2 = wresp.GetResponseStream();
-            StreamReader reader2 = new StreamReader(stream2);
-
-            result = reader2.ReadToEnd();
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex);
-        }
-        return result;
-    }
     public string GetAccessToken()
     {
         string url = "https://aip.baidubce.com/oauth/2.0/token";
@@ -348,6 +297,7 @@ public class RecognizeController : MonoBehaviour
             {
                 // Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.data);
                 Debug.Log(webRequest.downloadHandler.text);
+
             }
         }
     }

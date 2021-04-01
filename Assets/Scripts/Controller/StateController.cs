@@ -89,7 +89,10 @@ public class StateController : MonoBehaviour
 
         RefreshLayout();
     }
-
+    //获取当前最新的一个conditionstate
+    public StateCell GetConditionState(){
+        return statePanel.FindState(conditionStates[conditionStates.Count - 1]);
+    }
     public void RemoveGeometryState(Geometry geometry)
     {
         State state = geometryMap[geometry];

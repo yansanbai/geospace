@@ -222,7 +222,12 @@ public class GeometryBehaviour : MonoBehaviour
 
         //Clear Line
         foreach (KeyValuePair<GeoLine, LineBehaviour> pair in lineMap)
-            Destroy(pair.Value.gameObject);
+        {
+            Debug.Log(pair.Value);
+            Debug.Log(pair.Value.gameObject);
+            DestroyImmediate(pair.Value.gameObject);
+
+        }
         lineMap.Clear();
 
         // Clear Signs
@@ -254,29 +259,33 @@ public class GeometryBehaviour : MonoBehaviour
     
     private void AddVertex(GeoVertex geoVertex)
     {
-        GameObject vertexObject = new GameObject(geoVertex.ToString());
-        vertexObject.transform.SetParent(vertexWrapper.transform);
+        if (!vertexMap.ContainsKey(geoVertex))
+        {
+            GameObject vertexObject = new GameObject(geoVertex.ToString());
+            vertexObject.transform.SetParent(vertexWrapper.transform);
 
-        VertexBehaviour vertexBehaviour = vertexObject.AddComponent<VertexBehaviour>();
-        vertexBehaviour.Init(geoVertex, geoCamera);
-        vertexBehaviour.SetData(geometry.Vertex(geoVertex));
-
-        vertexMap.Add(geoVertex, vertexBehaviour);
-        elementMap.Add(geoVertex, vertexBehaviour);
+            VertexBehaviour vertexBehaviour = vertexObject.AddComponent<VertexBehaviour>();
+            vertexBehaviour.Init(geoVertex, geoCamera);
+            vertexBehaviour.SetData(geometry.Vertex(geoVertex));
+            vertexMap.Add(geoVertex, vertexBehaviour);
+            elementMap.Add(geoVertex, vertexBehaviour);
+        }
     }
 
     private void AddEdge(GeoEdge geoEdge)
     {
-        GameObject lineObject = new GameObject(geoEdge.ToString());
-        lineObject.transform.SetParent(edgeWrapper.transform);
+        if (!edgeMap.ContainsKey(geoEdge))
+        {
+            GameObject lineObject = new GameObject(geoEdge.ToString());
+            lineObject.transform.SetParent(edgeWrapper.transform);
 
-        EdgeBehaviour edgeBehaviour = lineObject.AddComponent<EdgeBehaviour>();
-        edgeBehaviour.Init(geoEdge, geoCamera);
+            EdgeBehaviour edgeBehaviour = lineObject.AddComponent<EdgeBehaviour>();
+            edgeBehaviour.Init(geoEdge, geoCamera);
 
-        edgeBehaviour.SetData(geometry.Edge(geoEdge), geometry.EdgeCenterDirection(geoEdge));
-
-        edgeMap.Add(geoEdge, edgeBehaviour);
-        elementMap.Add(geoEdge, edgeBehaviour);
+            edgeBehaviour.SetData(geometry.Edge(geoEdge), geometry.EdgeCenterDirection(geoEdge));
+            edgeMap.Add(geoEdge, edgeBehaviour);
+            elementMap.Add(geoEdge, edgeBehaviour);
+        }
     }
 
     private void AddFace(GeoFace geoFace)
@@ -324,16 +333,40 @@ public class GeometryBehaviour : MonoBehaviour
     //generate function line
     public void AddLine(GeoLine geoLine)
     {
-        GameObject planeObject = new GameObject(geoLine.ToString());
-        planeObject.transform.SetParent(lineWrapper.transform);
+        if (!lineMap.ContainsKey(geoLine))
+        {
+            GameObject planeObject = new GameObject(geoLine.ToString());
+            planeObject.transform.SetParent(lineWrapper.transform);
 
-        LineBehaviour lineBehaviour = planeObject.AddComponent<LineBehaviour>();
-        lineBehaviour.Init(geoLine, geoCamera);
+            LineBehaviour lineBehaviour = planeObject.AddComponent<LineBehaviour>();
+            lineBehaviour.Init(geoLine, geoCamera);
+            lineMap.Add(geoLine, lineBehaviour);
+            elementMap.Add(geoLine, lineBehaviour);
+            HighlightLine(lineMap.Count-1);
+        }
+    }
 
-        //lineBehaviour.SetData(geometry.Circular(geoLine));
+    public void HighlightLine(int index) {
+        int i = 0;
+        foreach (KeyValuePair<GeoLine, LineBehaviour> item in lineMap)
+        {
+            if (i == index)
+            {
+                item.Value.ChangeColor(1);
+            }
+            else
+            {
+                item.Value.ChangeColor(0);
+            }
+            i++;
+        }
 
-        lineMap.Add(geoLine, lineBehaviour);
-        elementMap.Add(geoLine, lineBehaviour);
+    }
+    public void ChangeLine(Vector3[] positions) {
+        Function func = (Function)this.geometry;
+        GameObject line = GameObject.Find("3D/Geometry/Line/line "+(func.Getindex()-1).ToString());
+        LineBehaviour lineBehaviour = line.GetComponent<LineBehaviour>();
+        lineBehaviour.ChangeData(positions);
     }
 
 
@@ -428,17 +461,29 @@ public class GeometryBehaviour : MonoBehaviour
 
     public void AddSign(int id)
     {
-        GameObject signObject = new GameObject("sign" + id);
-        signObject.transform.SetParent(signWrapper.transform);
+        if (!signMap.ContainsKey(id))
+        {
+            GameObject signObject = new GameObject("sign" + id);
+            signObject.transform.SetParent(signWrapper.transform);
 
-        SignBehaviour signBehaviour = signObject.AddComponent<SignBehaviour>();
-        signBehaviour.Init(id, geoCamera);
-        Vector3 pos = geometry.UnitVector(id);
-        Vector3 center = geometry.Center();
-        signBehaviour.SetData(pos, center);
-        signBehaviour.SetSign(geometry.VertexSign(id));
-
-        signMap.Add(id, signBehaviour);
+            SignBehaviour signBehaviour = signObject.AddComponent<SignBehaviour>();
+            signBehaviour.Init(id, geoCamera);
+            Vector3 pos = geometry.UnitVector(id);
+            Vector3 center = geometry.Center();
+            signBehaviour.SetData(pos, center);
+            //signBehaviour.SetSign(geometry.VertexSign(id));
+            String s = "(" + pos.x + "," + System.Math.Round(pos.y, 1) + ")";
+            //signBehaviour.SetSign(s);
+            if (geometry.Type == GeometryType.Function)
+            {
+                signBehaviour.SetSign(s);
+            }
+            else
+            {
+                signBehaviour.SetSign(geometry.VertexSign(id));
+            }
+            signMap.Add(id, signBehaviour);
+        }
     }
 
     public void RemoveSign(int id)
@@ -1053,5 +1098,11 @@ public class GeometryBehaviour : MonoBehaviour
     //     mesh.RecalculateNormals();
     //     return mesh;
     // }
-
+    public void SetEdgeStyle()
+    {
+        foreach (EdgeBehaviour edgeBehaviour in edgeMap.Values)
+        {
+            edgeBehaviour.SetStyleIndex(1);
+        }
+    }
 }

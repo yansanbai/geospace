@@ -14,14 +14,7 @@ public class Question : MonoBehaviour
     private Text timetext;
     private Button open;
     private Button delete;
-/*    public Question(string name,Texture2D img) {
-         this.name = name;
-         this.image = img;
-         open = this.transform.Find("open").gameObject.GetComponent<Button>();
-         delete = this.transform.Find("delete").gameObject.GetComponent<Button>();
-         open.onClick.AddListener(Open);
-         delete.onClick.AddListener(Delete);
-    }*/
+
     public void Start()
     {
         
@@ -41,15 +34,16 @@ public class Question : MonoBehaviour
     }
     public void Open() {
         Debug.Log("打开问题");
-        GameObject panel = GameObject.Find("UI/CanvasFront/QusetionPanel/Panel");
-        GameObject ques = GameObject.Find("UI/CanvasFront/QusetionPanel/Ques");
-        Text tex= GameObject.Find("UI/CanvasFront/QusetionPanel/Ques/name").GetComponent<Text>();
-        Image img= GameObject.Find("UI/CanvasFront/QusetionPanel/Ques/Image").GetComponent<Image>();
+        GameObject panel = GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Panel");
+        GameObject ques = GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Ques");
         panel.SetActive(false);
         ques.SetActive(true);
+        Text tex= GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Ques/name").GetComponent<Text>();
+        Image img= GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Ques/Image").GetComponent<Image>();
         tex.text = this.quesname;
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         img.sprite = sprite;
+        img.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((float)texture.height / (float)texture.width) * 1400);
     }
     public void Delete()
     {

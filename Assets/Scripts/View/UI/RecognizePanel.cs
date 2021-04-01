@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
-using System.Drawing;
 
 public class RecognizePanel : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class RecognizePanel : MonoBehaviour
     {
         input = transform.Find("InputField").GetComponent<InputField>();
         inputPanel = GameObject.Find("/UI/CanvasBack").transform.Find("InputPanel").GetComponent<InputPanel>();
+        showFomula = gameObject.transform.Find("ShowFomula").gameObject;
+        image = showFomula.transform.Find("Image").gameObject.GetComponent<UnityEngine.UI.Image>();
         Clear();
     }
 
@@ -27,38 +28,55 @@ public class RecognizePanel : MonoBehaviour
     }
 
     public void AddImage(string base64) {
-        Debug.Log(" ‰»Î¿∏ÃÌº”Õº∆¨");
-        showFomula = gameObject.transform.Find("ShowFomula").gameObject;
         showFomula.SetActive(true);
-        image=showFomula.transform.Find("Image").gameObject.GetComponent<UnityEngine.UI.Image>();
+        Debug.Log(" ‰»Î¿∏ÃÌº”Õº∆¨");
         byte[] data = System.Convert.FromBase64String(base64);
-        FileStream file = File.Open(Application.dataPath + "/temp/fomula/1.png", FileMode.Create);
+        FileStream file = File.Open(Application.dataPath + "/temp/fomula.png", FileMode.Create);
         BinaryWriter writer = new BinaryWriter(file);
         writer.Write(data);
         file.Close();
         file.Dispose();
-        FileStream fs = new FileStream(Application.dataPath + "/temp/fomula/1.png", FileMode.Open, FileAccess.Read);
+        //GameObject.Find("UI/CanvasFront/Text").GetComponent<Text>().text = Application.dataPath + "/temp/fomula.png";
+        FileStream fs = new FileStream(Application.dataPath + "/temp/fomula.png", FileMode.Open, FileAccess.Read);
         int byteLength = (int)fs.Length;
         byte[] imgBytes = new byte[byteLength];
         fs.Read(imgBytes, 0, byteLength);
         fs.Close();
         fs.Dispose();
-        System.Drawing.Image img = System.Drawing.Image.FromStream(new MemoryStream(imgBytes));
-        Texture2D texture = new Texture2D((img.Width/img.Height)*60, 60, TextureFormat.RGBA32, false);
+        Texture2D texture = new Texture2D(200, 60, TextureFormat.RGBA32, false);
         texture.LoadImage(imgBytes);
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         image.sprite = sprite;
-        image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (img.Width / img.Height) * 60);
-        image.gameObject.GetComponent<RectTransform>().position = new Vector3(50+ texture.width/2,0,0);
+        image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (texture.width / texture.height) * 60);
+        image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3((texture.width / texture.height) * 60 - 840,0,0);
+    }
+
+    public void AddEmpty()
+    {
+        FileStream fs = new FileStream(Application.dataPath + "/temp/empty.png", FileMode.Open, FileAccess.Read);
+        int byteLength = (int)fs.Length;
+        byte[] imgBytes = new byte[byteLength];
+        fs.Read(imgBytes, 0, byteLength);
+        fs.Close();
+        fs.Dispose();
+        Texture2D texture = new Texture2D(200, 60, TextureFormat.RGBA32, false);
+        texture.LoadImage(imgBytes);
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        image.sprite = sprite;
+        image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (texture.width / texture.height) * 60);
+        image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3((texture.width / texture.height) * 60 - 840, 0, 0);
     }
     public void Clear()
     {
+        showFomula.SetActive(false);
         gameObject.SetActive(false);
         input.text = "";
+        image.sprite = null;
     }
 
     public void showRecognizePanel()
     {
+        showFomula.SetActive(false);
         gameObject.SetActive(true);
         inputPanel.Clear();
     }
