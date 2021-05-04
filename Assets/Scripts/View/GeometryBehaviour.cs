@@ -342,26 +342,17 @@ public class GeometryBehaviour : MonoBehaviour
             lineBehaviour.Init(geoLine, geoCamera);
             lineMap.Add(geoLine, lineBehaviour);
             elementMap.Add(geoLine, lineBehaviour);
-            HighlightLine(lineMap.Count-1);
+            HighlightLine(geoLine);
         }
     }
-
-    public void HighlightLine(int index) {
-        int i = 0;
+    public void HighlightLine(GeoLine line) {
         foreach (KeyValuePair<GeoLine, LineBehaviour> item in lineMap)
         {
-            if (i == index)
-            {
-                item.Value.ChangeColor(1);
-            }
-            else
-            {
-                item.Value.ChangeColor(0);
-            }
-            i++;
+            item.Value.ChangeColor(0);
         }
-
+        lineMap[line].ChangeColor(1);
     }
+    //目前用不到
     public void ChangeLine(Vector3[] positions) {
         Function func = (Function)this.geometry;
         GameObject line = GameObject.Find("3D/Geometry/Line/line "+(func.Getindex()-1).ToString());

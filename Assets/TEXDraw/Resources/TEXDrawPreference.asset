@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f181994389177aa4e8807fb9cd14776f, type: 3}
+  m_Name: TEXDrawPreference
+  m_EditorClassIdentifier: 
+  MainFolderPath: Assets/TEXDraw
+  IncludeMathSlot: 1
+  header_mathCount: 8
+  header_userCount: 16
+  editorReloading: 0
+  defaultMaterial: {fileID: 2100000, guid: 9d473469be5a9fc448e911362f79b8a9, type: 2}
+  fonts:
+  - {fileID: 11400000, guid: 1d7ad9bce2209b34380596f6fb8f368b, type: 2}
+  - {fileID: 11400000, guid: 8eae75c4c3ee6db4295aae6111643852, type: 2}
+  - {fileID: 11400000, guid: 36cbf2b2c6380634f871b143d2c15ebe, type: 2}
+  - {fileID: 11400000, guid: af41f737f27d4574e973f9d0eabf6c73, type: 2}
+  - {fileID: 11400000, guid: 1a64294e11d0b7a47b897de048b96621, type: 2}
+  - {fileID: 11400000, guid: 537d330c496354a42a493d001c4c1a03, type: 2}
+  - {fileID: 11400000, guid: c69b39726b7dc4c4587ddb4473711fa9, type: 2}
+  - {fileID: 11400000, guid: a599888a47ccd9848b65c386385032b3, type: 2}
+  - {fileID: 11400000, guid: 3a7724c62c5a4a4469f53a7de7fc1d11, type: 2}
+  - {fileID: 11400000, guid: e52d6a9245a3187458f89fd0f589cb54, type: 2}
+  - {fileID: 11400000, guid: 4578b568985c89d428f612ba3325c88c, type: 2}
+  - {fileID: 11400000, guid: 2180f100e3f700a4594a88b850d95954, type: 2}
+  - {fileID: 11400000, guid: 86418612f43ce8d428e465fc429463d9, type: 2}
+  - {fileID: 11400000, guid: 846d451824c5efd4da7689009a8844f4, type: 2}
+  - {fileID: 11400000, guid: e4c7dc4b21bd87d4780673b3f20f4262, type: 2}
+  - {fileID: 11400000, guid: 2281e009173047241917f55e92b405e2, type: 2}
+  - {fileID: 11400000, guid: 77774f88cd0325949be01c4001f35c2e, type: 2}
+  preferences: {fileID: 11400000, guid: dd026dbb7bdb46842916dd81de3943bd, type: 2}
+  glueTable: 00000000030000000300000005000000040000000100000001000000030000000200000000000000030000000000000003000000020000000200000001000000010000000200000002000000000000000300000003000000010000000100000001000000010000000100000002000000020000000000000005000000020000000100000001000000010000000100000001000000030000000300000000000000040000000200000001000000010000000100000001000000010000000200000001000000000000000100000001000000010000000100000001000000010000000000000002000000020000000000000001000000010000000100000001000000010000000000000001000000020000000200000000000000030000000200000002000000030000000200000002000000020000000300000004000000000000000200000002000000020000000300000001000000020000000200000004000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  ConfigIDs:
+  - cmex
+  - cmmi
+  - cmr
+  - cmsy
+  - msam
+  - msbm
+  - stmary
+  - wasy
+  - bbold
+  - cmbx
+  - cmfi
+  - cmss
+  - cmtt
+  - eufm
+  - eurm
+  - opens
+  - iconic
+  FontIDs:
+  - -1 (Use Math Typefaces)
+  - 0 - cmex.ttf
+  - 1 - cmmi.ttf
+  - 2 - cmr.ttf
+  - 3 - cmsy.ttf
+  - 4 - msam.ttf
+  - 5 - msbm.ttf
+  - 6 - stmary.ttf
+  - 7 - wasy.ttf
+  - 8 - bbold.ttf
+  - 9 - cmbx.ttf
+  - 10 - cmfi.ttf
+  - 11 - cmss.ttf
+  - 12 - cmtt.ttf
+  - 13 - eufm.ttf
+  - 14 - eurm.ttf
+  - 15 - opens.ttf
+  - 16 - iconic.ttf
+  FontIDsGUI:
+  - m_Text: -1 (Use Math Typefaces)
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 0 - cmex.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 1 - cmmi.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 2 - cmr.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 3 - cmsy.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 4 - msam.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 5 - msbm.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 6 - stmary.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 7 - wasy.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 8 - bbold.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 9 - cmbx.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 10 - cmfi.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 11 - cmss.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 12 - cmtt.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 13 - eufm.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 14 - eurm.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 15 - opens.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: 16 - iconic.ttf
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  FontIndexs: ffffffff000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000
+  watchedMaterial:
+  - {fileID: 2100000, guid: 9d473469be5a9fc448e911362f79b8a9, type: 2}
+  - {fileID: 2100000, guid: 9fb82840f4e3d604081053d86702b0a8, type: 2}
+  - {fileID: 2100000, guid: 3d8751f19f0712c4d96402698f5b503d, type: 2}
+  - {fileID: 2100000, guid: 73dd7443412082c409b2a02842af61a1, type: 2}
+  - {fileID: 2100000, guid: d7c5a2af90e37fd4a9dc11587ff50f36, type: 2}
+  - {fileID: 2100000, guid: 4d479d4a46c425c42885046b5fa0ccde, type: 2}

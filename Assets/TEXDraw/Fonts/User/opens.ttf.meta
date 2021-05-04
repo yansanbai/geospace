@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 1d69ce5b39b918c4887bff5d53ea98d1
+timeCreated: 1495550688
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames:
+  - Open Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fe015f6966a3b3f408fcbbcda2cd14b0, type: 3}
+  - {fileID: 12800000, guid: 59146b2b5ecbcde448ff42c68fe3726f, type: 3}
+  customCharacters: "\xC0\xC1\xC2\xC3\xC4\xC5\xC6\xC7\xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\xB0\xD1\xD2\xD3\xD4\xD5\xD6\xB7\xD8\xD9\xDA\xDB\xDC\xB5\xB6\xDF\xEF!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\xFF"
+  fontRenderingMode: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

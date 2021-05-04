@@ -1,0 +1,407 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3a5a8d53a9a0f4994e08bc9b008895, type: 3}
+  m_Name: iconic
+  m_EditorClassIdentifier: 
+  id: iconic
+  index: 16
+  catalogRaw: X:C0-CF,B0,D1-D6,B7,D8-DC,B5-B6,DF,EF,21-7E,FF
+  path: Assets/TEXDraw/Fonts/Sprites/Iconic.png
+  catalog: c000c100c200c300c400c500c600c700c800c900ca00cb00cc00cd00ce00cf00b000d100d200d300d400d500d600b700d800d900da00db00dc00b500b600df00
+  chars:
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: play
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: pause
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: stop
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: step
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: electric
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: sunshine
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: moon
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: cloud
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: lock
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: finger
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: convexstar
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: time
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: rocket
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: flight
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: placemark
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: speed
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: reset
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: wrench
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: dumpbin
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: stack
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: call
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: heart
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: wrongmark
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: checkmark
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: cross
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: speedup
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: levelup
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: chat
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: idea
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: lookup
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: key
+    symbolAlt: 
+    characterMap: 0
+  - type: 0
+    nextLargerHash: -1
+    extensionExist: 0
+    extensionHorizontal: 0
+    extentTopHash: -1
+    extentMiddleHash: -1
+    extentBottomHash: -1
+    extentRepeatHash: -1
+    symbolName: gift
+    symbolAlt: 
+    characterMap: 0
+  assets:
+  - {fileID: 21300000, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300002, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300004, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300006, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300008, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300010, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300012, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300014, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300016, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300018, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300020, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300022, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300024, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300026, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300028, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300030, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300032, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300034, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300036, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300038, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300040, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300042, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300044, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300046, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300048, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300050, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300052, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300054, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300056, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300058, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300060, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  - {fileID: 21300062, guid: 70cc3e8406f29d34ab8e7b5bb2cfae2e, type: 3}
+  lineOffset: 0
+  lineHeight: 1
+  alphaOnly: 1

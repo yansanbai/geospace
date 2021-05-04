@@ -9,6 +9,7 @@ public class KeyboardScript : MonoBehaviour
 
     public InputField TextField;
     public GameObject RusLayoutSml, RusLayoutBig, EngLayoutSml, EngLayoutBig, SymbLayout;
+    private byte lastcode = 0;
 
     [DllImport("user32.dll", EntryPoint = "keybd_event")]
     public static extern void Keybd_event(
@@ -20,29 +21,37 @@ public class KeyboardScript : MonoBehaviour
     public void alphabetFunction(string alphabet)
     {
         int code = (int)alphabet[0];
-        byte code1 = (byte)(code - 97 + 65);
-        Debug.Log(code1);
+        
+        byte code1 = 0;
+        if (code < 58)
+        {
+            code1 = (byte)(code);
+        }
+        else
+        {
+            code1 = (byte)(code - 97 + 65);
+        }
+        Keybd_event(lastcode, 0, 2, 0);
         Keybd_event(code1, 0, 0, 0);
+        lastcode = code1;
         //TextField.text=TextField.text + alphabet;
-
     }
 
     public void BackSpace()
     {
         Keybd_event(8, 0, 0, 0);
+        //Keybd_event(8, 0, 2, 0);
         //if(TextField.text.Length>0) TextField.text= TextField.text.Remove(TextField.text.Length-1);
 
     }
 
     public void CloseAllLayouts()
     {
-
         RusLayoutSml.SetActive(false);
         RusLayoutBig.SetActive(false);
         EngLayoutSml.SetActive(false);
         EngLayoutBig.SetActive(false);
         SymbLayout.SetActive(false);
-
     }
 
     public void ShowLayout(GameObject SetLayout)

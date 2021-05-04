@@ -201,17 +201,17 @@ public class RecognizeController : MonoBehaviour
         }
     }
 
-    public void GetRecognizeChange(string base64, string fomula)
+    public void GetRecognizeChange(string latex, string fomula)
     {
         penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
-        StartCoroutine(Post(base64,fomula));
+        StartCoroutine(Post(latex,fomula));
     }
 
-    IEnumerator Post(string base64,string fomula)
+    IEnumerator Post(string latex,string fomula)
     {
         WWWForm form = new WWWForm();
         //键值对
-        form.AddField("image", base64);
+        form.AddField("transform_content", latex);
         form.AddField("latex", fomula);
         //请求链接，并将form对象发送到远程服务器
         UnityWebRequest webRequest = UnityWebRequest.Post("http://120.27.145.45:5000/transform", form);

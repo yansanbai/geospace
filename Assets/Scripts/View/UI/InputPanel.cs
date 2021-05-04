@@ -302,7 +302,7 @@ public class InputPanel : MonoBehaviour
 
     private InputNum AddInputNum(FormNum formNum)
     {
-        Debug.Log("input");
+        keyboard.SetActive(true);
         GameObject go = GameObject.Instantiate(InputNumPrefab.gameObject);
         go.transform.SetParent(transform, false);
 

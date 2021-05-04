@@ -27,6 +27,8 @@ public class CoordinateBehaviour : MonoBehaviour
     private Vector3[] xPos, yPos, zPos;
 
     private GameObject[] xPoints, yPoints, zPoints;
+    private GameObject[] Signx, Signy, Signz;
+    private int sigx, sigy, sigz;
     private TextMesh[] xSigns, ySigns, zSigns;
 
     private int count;
@@ -78,6 +80,10 @@ public class CoordinateBehaviour : MonoBehaviour
         StyleManager.SetArrowYMaterial(yArrowRender);
         StyleManager.SetArrowZMaterial(zArrowRender);
 
+        Signx = new GameObject[size+1];
+        Signy = new GameObject[size+1];
+        Signz = new GameObject[size+1];
+        sigx = sigy = sigz = 0;
 
         MeshRenderer xSignRender, ySignRender, zSignRender;
         xSign = InitSign("x", "x", new Vector3(offset, 0, 0), out xSignRender);
@@ -158,6 +164,32 @@ public class CoordinateBehaviour : MonoBehaviour
 
     delegate void SetMaterial(MeshRenderer renderer);
 
+    public void AxisZHide() {
+        zAxis.SetActive(false);
+        zArrow.SetActive(false);
+        foreach (GameObject point in zPoints) { 
+            point.SetActive(false);
+        }
+        foreach (GameObject sign in Signz)
+        {
+            sign.SetActive(false);
+        }
+
+    }
+    public void AxisZShow()
+    {
+        zAxis.SetActive(true);
+        zArrow.SetActive(true);
+        foreach (GameObject point in zPoints)
+        {
+            point.SetActive(true);
+        }
+        foreach (GameObject sign in Signz)
+        {
+            sign.SetActive(true);
+        }
+
+    }
     private void InitPointsSigns(string name, ref Vector3[] pos, ref GameObject[] points, ref TextMesh[] signs, Vector3 unit, int size, SetMaterial axisDelegate, SetMaterial signDelegate)
     {
         for (int i = 0; i < size / 2; i++)
@@ -297,6 +329,20 @@ public class CoordinateBehaviour : MonoBehaviour
     private TextMesh InitSign(string name, string text, Vector3 position, out MeshRenderer meshRenderer)
     {
         GameObject sign = new GameObject("sign " + name + text);
+        if (name == "x")
+        {
+            Signx[sigx] = sign;
+            sigx++;
+        }
+        else if (name == "y") {
+            Signy[sigy] = sign;
+            sigy++;
+        }
+        else if (name == "z")
+        {
+            Signz[sigz] = sign;
+            sigz++;
+        }
         sign.transform.SetParent(signWrapper.transform);
         TextMesh textMesh = sign.AddComponent<TextMesh>();
         meshRenderer = textMesh.GetComponent<MeshRenderer>();
@@ -365,4 +411,5 @@ public class CoordinateBehaviour : MonoBehaviour
 
         return mesh;
     }
+    
 }

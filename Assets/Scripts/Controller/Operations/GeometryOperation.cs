@@ -47,7 +47,6 @@ public class GeometryOperation : Operation
         //Debug.Log(geometry.VertexSign(0));
         //Debug.Log(signs.Length);
         if (signs != null) {
-            Debug.Log("111");
             if (signs.Length == 8)
             {
                 geometry.SetVertexSign(0, signs[0]);

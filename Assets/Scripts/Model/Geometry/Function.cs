@@ -18,7 +18,7 @@ public class Function : Geometry
     }
 
     public void SetWriting(Vector3[] pos,string fomula) {
-        GeoLine line = new GeoLine(index, pos);
+        GeoLine line = new GeoLine(index, pos,fomula);
         currentfomula = fomula;
         lines.Add(line);
         AddGeoLine(line);

@@ -132,8 +132,9 @@ public class AddConditionOperation : Operation
             {
                 //获取当前state对应的geoline，让behaviour调用
                 FreeCondition free = (FreeCondition)condition;
-                geometryBehaviour.HighlightLine(free.index - 1);
-                Debug.Log(free.index-1);
+                Function func = (Function)geometry;
+                geometryBehaviour.HighlightLine(func.Getline()[free.index-1]);
+                func.Setfomula(func.Getline()[free.index - 1].Fomula());
             };
             stateController.AddConditionState(conditionState);
         }

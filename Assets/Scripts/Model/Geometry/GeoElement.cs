@@ -297,11 +297,13 @@ public class GeoLine : GeoElement
 {
     private Vector3[] positions;
     private int Id;
-    public GeoLine(int id, Vector3[] pos, bool isBased = false) : base(0, 0, isBased)
+    private string fomula;
+    public GeoLine(int id, Vector3[] pos, string fom,bool isBased = false) : base(0, 0, isBased)
     {
         name = "Line";
         positions = pos;
         Id = id;
+        fomula = fom;
     }
 
     public Vector3[] Position()
@@ -312,6 +314,10 @@ public class GeoLine : GeoElement
     public Line Line()
     {
         return new Line();
+    }
+    public String Fomula()
+    {
+        return fomula;
     }
     public override string ToString()
     {

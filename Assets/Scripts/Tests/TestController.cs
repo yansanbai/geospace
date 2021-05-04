@@ -38,10 +38,12 @@ public class TestController : MonoBehaviour
         {
             Content.SetActive(false);
             resize.SetResize(false);
+            //Content.transform.localPosition = new Vector3(0,0,0);
         }
         else {
             Content.SetActive(true);
             resize.SetResize(true);
+            //Content.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
     public void ShutQuestionPanel()

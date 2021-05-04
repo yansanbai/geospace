@@ -47,8 +47,9 @@ public class RecognizePanel : MonoBehaviour
         texture.LoadImage(imgBytes);
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         image.sprite = sprite;
-        image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (texture.width / texture.height) * 60);
-        image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3((texture.width / texture.height) * 60 - 840,0,0);
+
+        image.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(((float)texture.width / (float)texture.height) * 60, 60);
+        image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(((float)texture.width / (float)texture.height) * 60 - 840,0,0);
     }
 
     public void AddEmpty()

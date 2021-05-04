@@ -72,6 +72,7 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (sprite.rect.width / sprite.rect.height) * 40);
         image.gameObject.transform.localPosition= new Vector3(image.gameObject.GetComponent<RectTransform>().rect.width/2-100, -40, 0);
         image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        transform.GetChild(1).gameObject.SetActive(false);
     }
 
     public void SetIcon(Sprite sprite)

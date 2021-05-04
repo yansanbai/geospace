@@ -255,6 +255,7 @@ public class PenBehaviour : ElementBehaviour
             } else {
                 point = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
                 point = ScaleHandwritingPoint(point);
+
                 if (!pen.GetPoints().Contains(point))
                 {
                     pen.AddPoint(point);
@@ -503,7 +504,7 @@ public class PenBehaviour : ElementBehaviour
         }
         else if (res.Contains("\\rightarrow"))
         {
-            AddChange(word);
+            AddChange(res);
         }
         else {
             recognizePanel.AddWord(res);
@@ -513,10 +514,9 @@ public class PenBehaviour : ElementBehaviour
        
     }
 
-    private void AddChange(Word word)
+    private void AddChange(String latex)
     {
-        string base64 = PointsToBitmap(word).Replace(" ", "");
-        geoController.HandleRecognizeChange(base64);
+        geoController.HandleRecognizeChange(latex);
     }
 
     public void ExecuteChange(string result,Vector3[] positions) {
@@ -524,7 +524,7 @@ public class PenBehaviour : ElementBehaviour
         {
             Debug.Log("识别失败");
             recognizePanel.Clear();
-            Clear();
+            LightClear();
         }
         else
         {
@@ -538,8 +538,7 @@ public class PenBehaviour : ElementBehaviour
             geometryBehaviour.AddElements();
             geometryBehaviour.SetEdgeStyle();
             geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));*/
-            recognizePanel.Clear();
-            Clear();
+
             Function function = (Function)geometry;
             function.SetWriting(positions, result);
             geometryBehaviour.AddElements();
@@ -558,6 +557,10 @@ public class PenBehaviour : ElementBehaviour
             tool.Icon = sprite;
             geoController.AddConditionOperation(tool);
             geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
+
+            recognizePanel.Clear();
+            LightClear();
+            //transform.parent.gameObject.SetActive(false);
 
         }
     }
@@ -722,12 +725,21 @@ public class PenBehaviour : ElementBehaviour
         SetData(0, new Vector3(0,0,0));
     }
 
+    private void LightClear() {
+        prePen = null;
+        foreach (KeyValuePair<Pen, GameObject> pair in penMap)
+            Destroy(pair.Value);
+        penMap.Clear();
+        recognizeResult = "";
+        SetData(0, new Vector3(0, 0, 0));
+        recognizePanel.showRecognizePanel();
+    }
     private void ClickSubmit()
     {
-        transform.parent.gameObject.SetActive(false);
+        //transform.parent.gameObject.SetActive(false);
         String command = recognizePanel.GetWords();
         recognizePanel.Clear();
-        Clear();
+        LightClear();
         if (Drawing)
         {
             AddShape();
@@ -763,8 +775,8 @@ public class PenBehaviour : ElementBehaviour
     }
     private void ClickCancel()
     {
-        transform.parent.gameObject.SetActive(false);
+        //transform.parent.gameObject.SetActive(false);
         recognizePanel.Clear();
-        Clear();
+        LightClear();
     }
 }

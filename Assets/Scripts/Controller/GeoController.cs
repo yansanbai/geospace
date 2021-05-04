@@ -256,8 +256,11 @@ public class GeoController : MonoBehaviour
         if (geometry.Type == GeometryType.Function)
         {
             ClearGeometry(2);
-        }else {
+            coordinateBehaviour.AxisZHide();
+        }
+        else {
             ClearGeometry(3);
+            coordinateBehaviour.AxisZShow();
         }
 
         this.geometry = geometry;
@@ -411,20 +414,30 @@ public class GeoController : MonoBehaviour
     }
     public void HandleClickWritingButton(int i)
     {
-        if (geoUI.writingPanel != null && i == 1)
+        Debug.Log("按下书写按钮");
+        if (geoUI.writingPanel != null)
         {
-            Debug.Log(state);
-            currentOperation = new WritingOperation(this, geometry);
-            currentOperation.Start();
+            if (i == 1)
+            {
+                Debug.Log(state);
+                currentOperation = new WritingOperation(this, geometry);
+                currentOperation.Start();
 
-            geoUI.writingPanel.OpenWritingPanel(geometry);
+                geoUI.writingPanel.OpenWritingPanel(geometry);
 
-            SetState(GeoState.Writing);
+                SetState(GeoState.Writing);
+            }
+            else
+            {
+                SetState(GeoState.Normal);
+                geoUI.writingPanel.Clear();
+            }
         }
     }
 
     public void HandleClickShadeButton(int i)
     {
+
         shadeType = (GeometryShadeType)i;
         geometryBehaviour.SetShadeType(shadeType);
     }
@@ -482,12 +495,12 @@ public class GeoController : MonoBehaviour
         img = image;
     }
 
-    public void HandleRecognizeChange(string base64)
+    public void HandleRecognizeChange(string latex)
     {
         Function func = (Function)this.geometry;
         string currentfomula = func.Getfomula();
         //string currentfomula = "y=x+1";
-        recognizeController.GetRecognizeChange(base64, currentfomula);
+        recognizeController.GetRecognizeChange(latex, currentfomula);
     }
 
     public string HandleRecognizeTick(string base64)
