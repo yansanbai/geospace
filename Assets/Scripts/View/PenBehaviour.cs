@@ -253,7 +253,13 @@ public class PenBehaviour : ElementBehaviour
                     i++;
                 }
             } else {
-                point = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+                if (IsTouchDevice()) {
+                    if (Input.touchCount > 0) {
+                        point = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
+                    }
+                } else {
+                    point = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+                }
                 point = ScaleHandwritingPoint(point);
 
                 if (!pen.GetPoints().Contains(point))
@@ -779,4 +785,10 @@ public class PenBehaviour : ElementBehaviour
         recognizePanel.Clear();
         LightClear();
     }
+
+    private bool IsTouchDevice() {
+			return Application.platform == RuntimePlatform.Android || 
+				Application.platform == RuntimePlatform.IPhonePlayer || 
+				Application.platform == RuntimePlatform.WP8Player;
+	}
 }
