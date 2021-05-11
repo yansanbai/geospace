@@ -29,7 +29,7 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     //DoubleClickButton btnToggle;
     Button btnToggle;
     Button btnDelete;
-    Text text;
+    TEXDraw text;
     Image image;
     Boolean isHighlighted = false;
 
@@ -47,7 +47,7 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         btnToggle.onClick.AddListener(ToggleButtonDoubleClicked);
         btnDelete.onClick.AddListener(DeleteButtonClicked);
 
-        text = transform.Find("Text").GetComponent<Text>();
+        text = transform.Find("Text").GetComponent<TEXDraw>();
         image= transform.Find("Image").GetComponent<Image>();
     }
 

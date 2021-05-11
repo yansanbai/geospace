@@ -507,7 +507,7 @@ public class PenBehaviour : ElementBehaviour
         geoController.HandleRecognizeChange(latex);
     }
 
-    public void ExecuteFomula(string res, string image)
+    public void ExecuteFomula(string res)
     {
         if (res == "")
         {
@@ -563,7 +563,7 @@ public class PenBehaviour : ElementBehaviour
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
             tool.Icon = sprite;
             geoController.AddConditionOperation(tool);
-            geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
+            //geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
 
             recognizePanel.Clear();
             LightClear();
@@ -750,7 +750,13 @@ public class PenBehaviour : ElementBehaviour
         }
         else
         {
-            geoController.HandleGetPosition(command);
+            if (geometry != null && geometry.Type == GeometryType.Function)
+            {
+                geoController.HandleGetPosition(command);
+            }
+            else {
+                GameObject.Find("GeoController").GetComponent<GeoController>().Classify(command);
+            }
         }
     }
     private void ClickCancel()
@@ -762,31 +768,24 @@ public class PenBehaviour : ElementBehaviour
 
     public void SetPositions(Vector3[] pos) {
         positions = pos;
-        if (geometry != null && geometry.Type == GeometryType.Function)
-        {
-            Function function = (Function)geometry;
-            function.SetWriting(positions, command);
-            geometryBehaviour.AddElements();
-            geometryBehaviour.SetEdgeStyle();
-            Tool tool = new Tool();
-            tool.Name = "Free";
-            FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
-            int byteLength = (int)fs.Length;
-            byte[] imgBytes = new byte[byteLength];
-            fs.Read(imgBytes, 0, byteLength);
-            fs.Close();
-            fs.Dispose();
-            Texture2D texture = new Texture2D(40, 40, TextureFormat.RGBA32, false);
-            texture.LoadImage(imgBytes);
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            tool.Icon = sprite;
-            geoController.AddConditionOperation(tool);
-            geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
-        }
-        else
-        {
-            GameObject.Find("GeoController").GetComponent<GeoController>().Classify(command);
-        }
+        Function function = (Function)geometry;
+        function.SetWriting(positions, command);
+        geometryBehaviour.AddElements();
+        geometryBehaviour.SetEdgeStyle();
+        Tool tool = new Tool();
+        tool.Name = "Free";
+        FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
+        int byteLength = (int)fs.Length;
+        byte[] imgBytes = new byte[byteLength];
+        fs.Read(imgBytes, 0, byteLength);
+        fs.Close();
+        fs.Dispose();
+        Texture2D texture = new Texture2D(40, 40, TextureFormat.RGBA32, false);
+        texture.LoadImage(imgBytes);
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        tool.Icon = sprite;
+        geoController.AddConditionOperation(tool);
+        //geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
     }
 
     private bool IsTouchDevice() {

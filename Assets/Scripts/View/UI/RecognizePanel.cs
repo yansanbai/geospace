@@ -77,6 +77,7 @@ public class RecognizePanel : MonoBehaviour
     {
         gameObject.SetActive(false);
         input.text = "";
+        texdraw.text = "";
     }
 
     public void showRecognizePanel()

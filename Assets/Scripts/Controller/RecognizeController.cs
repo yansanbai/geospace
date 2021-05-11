@@ -146,7 +146,7 @@ public class RecognizeController : MonoBehaviour
     }
 
     //
-    public string TryRecognize(string base64,string host) {
+/*    public string TryRecognize(string base64,string host) {
         try
         {
             Encoding encoding = Encoding.Default;
@@ -170,7 +170,7 @@ public class RecognizeController : MonoBehaviour
             Debug.Log(ex);
             return "";
         }
-    }
+    }*/
 
     int partcode = 0;
     //函数部分识别公式
@@ -193,6 +193,8 @@ public class RecognizeController : MonoBehaviour
     //函数部分识别系数常量变换
     public void GetRecognizeChange(string latex, string fomula)
     {
+        Debug.Log(latex);
+        Debug.Log(fomula);
         partcode = 3;
         penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
         WWWForm form = new WWWForm();
@@ -231,10 +233,6 @@ public class RecognizeController : MonoBehaviour
             if (jo["data"]["latex"]!=null) {
                 result = (string)jo["data"]["latex"];
             }
-            if (jo["data"]["image"] != null)
-            {
-                image = (string)jo["data"]["image"];
-            }
             if (jo["data"]["points"] != null)
             {
                 int length = ((JArray)jo["data"]["points"]).Count;
@@ -249,7 +247,7 @@ public class RecognizeController : MonoBehaviour
         }
         if (partcode == 1)
         {
-            penBehaviour.ExecuteFomula(result, image);
+            penBehaviour.ExecuteFomula(result);
         }
         else if (partcode == 2)
         {
@@ -257,12 +255,6 @@ public class RecognizeController : MonoBehaviour
         }
         else 
         {
-            byte[] img = System.Convert.FromBase64String(image);
-            FileStream file = File.Open(Application.dataPath + "/temp/fomula.png", FileMode.Create);
-            BinaryWriter writer = new BinaryWriter(file);
-            writer.Write(img);
-            file.Close();
-            file.Dispose();
             penBehaviour.ExecuteChange(result, positions);
         }
     }
