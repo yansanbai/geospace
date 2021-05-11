@@ -30,7 +30,6 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     Button btnToggle;
     Button btnDelete;
     TEXDraw text;
-    Image image;
     Boolean isHighlighted = false;
 
     public void Init()
@@ -48,7 +47,6 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         btnDelete.onClick.AddListener(DeleteButtonClicked);
 
         text = transform.Find("Text").GetComponent<TEXDraw>();
-        image= transform.Find("Image").GetComponent<Image>();
     }
 
 
@@ -67,13 +65,13 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     }
 
-    public void SetImage(Sprite sprite) {
+/*    public void SetImage(Sprite sprite) {
         image.sprite = sprite;
         image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (sprite.rect.width / sprite.rect.height) * 40);
         image.gameObject.transform.localPosition= new Vector3(image.gameObject.GetComponent<RectTransform>().rect.width/2-100, -40, 0);
         image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         transform.GetChild(1).gameObject.SetActive(false);
-    }
+    }*/
 
     public void SetIcon(Sprite sprite)
     {

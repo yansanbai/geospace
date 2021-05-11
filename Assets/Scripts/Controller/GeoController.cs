@@ -1784,9 +1784,9 @@ public class GeoController : MonoBehaviour
 
     #endregion
 
-    public void ChangeConditionState(Sprite sprite) {
+/*    public void ChangeConditionState(Sprite sprite) {
         StateCell cell = stateController.GetConditionState();
 
         cell.SetImage(sprite);
-    }
+    }*/
 }

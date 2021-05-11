@@ -27,7 +27,12 @@ public class RecognizePanel : MonoBehaviour
         input.text += str;
     }
 
-    public void AddLatex(string str)
+    public void SetWord(string str)
+    {
+        input.text = str;
+    }
+
+    public void SetLatex(string str)
     {
         texdraw.text = str ;
     }

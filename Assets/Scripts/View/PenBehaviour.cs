@@ -520,8 +520,9 @@ public class PenBehaviour : ElementBehaviour
         }
         else
         {
+            recognizePanel.SetWord("");
             command = res;
-            recognizePanel.AddLatex(res);
+            recognizePanel.SetLatex(res);
             recognizeResult = res;
             //recognizePanel.AddImage(image);
         }
@@ -552,16 +553,7 @@ public class PenBehaviour : ElementBehaviour
             geometryBehaviour.SetEdgeStyle();
             Tool tool = new Tool();
             tool.Name = "Free";
-            FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
-            int byteLength = (int)fs.Length;
-            byte[] imgBytes = new byte[byteLength];
-            fs.Read(imgBytes, 0, byteLength);
-            fs.Close();
-            fs.Dispose();
-            Texture2D texture = new Texture2D(40, 40, TextureFormat.RGBA32, false);
-            texture.LoadImage(imgBytes);
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            tool.Icon = sprite;
+            tool.Icon = Resources.Load<Sprite>("free");
             geoController.AddConditionOperation(tool);
             //geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
 
@@ -774,16 +766,7 @@ public class PenBehaviour : ElementBehaviour
         geometryBehaviour.SetEdgeStyle();
         Tool tool = new Tool();
         tool.Name = "Free";
-        FileStream fs = new FileStream(Application.dataPath + "/temp/free.png", FileMode.Open, FileAccess.Read);
-        int byteLength = (int)fs.Length;
-        byte[] imgBytes = new byte[byteLength];
-        fs.Read(imgBytes, 0, byteLength);
-        fs.Close();
-        fs.Dispose();
-        Texture2D texture = new Texture2D(40, 40, TextureFormat.RGBA32, false);
-        texture.LoadImage(imgBytes);
-        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        tool.Icon = sprite;
+        tool.Icon = Resources.Load<Sprite>("free");
         geoController.AddConditionOperation(tool);
         //geoController.ChangeConditionState(ToSprite(Application.dataPath + "/temp/fomula.png"));
     }
