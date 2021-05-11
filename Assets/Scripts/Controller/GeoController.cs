@@ -484,15 +484,14 @@ public class GeoController : MonoBehaviour
         return recognizeController.GetRecognizeResult(base64);
     }
 
-    public void HandleRecognizeFomula(string base64,out string res,out Vector3[] pos,out string img)
+    public void HandleRecognizeFomula(string base64)
     {
-        string result;
-        Vector3[] positions;
-        string image;
-        recognizeController.GetRecognizeFomula(base64,out result,out positions,out image);
-        res = result;
-        pos= positions;
-        img = image;
+        recognizeController.GetRecognizeFomula(base64);
+    }
+
+    public void HandleGetPosition(string latex)
+    {
+        recognizeController.GetPositon(latex);
     }
 
     public void HandleRecognizeChange(string latex)
@@ -503,10 +502,10 @@ public class GeoController : MonoBehaviour
         recognizeController.GetRecognizeChange(latex, currentfomula);
     }
 
-    public string HandleRecognizeTick(string base64)
+/*    public string HandleRecognizeTick(string base64)
     {
         return recognizeController.GetRecognizeTick(base64);
-    }
+    }*/
 
     public void ClickVertex(GeoVertex vertex)
     {

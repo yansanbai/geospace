@@ -11,14 +11,14 @@ public class RecognizePanel : MonoBehaviour
     InputField input;
     InputPanel inputPanel;
     GameObject showFomula;
+    TEXDraw texdraw;
     UnityEngine.UI.Image image;
 
     public void Init()
     {
         input = transform.Find("InputField").GetComponent<InputField>();
         inputPanel = GameObject.Find("/UI/CanvasBack").transform.Find("InputPanel").GetComponent<InputPanel>();
-        showFomula = gameObject.transform.Find("ShowFomula").gameObject;
-        image = showFomula.transform.Find("Image").gameObject.GetComponent<UnityEngine.UI.Image>();
+        texdraw= transform.Find("TEXDraw").GetComponent<TEXDraw>();
         Clear();
     }
 
@@ -27,7 +27,12 @@ public class RecognizePanel : MonoBehaviour
         input.text += str;
     }
 
-    public void AddImage(string base64) {
+    public void AddLatex(string str)
+    {
+        texdraw.text = str ;
+    }
+
+/*    public void AddImage(string base64) {
         showFomula.SetActive(true);
         Debug.Log(" ‰»Î¿∏ÃÌº”Õº∆¨");
         byte[] data = System.Convert.FromBase64String(base64);
@@ -50,10 +55,11 @@ public class RecognizePanel : MonoBehaviour
 
         image.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(((float)texture.width / (float)texture.height) * 60, 60);
         image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(((float)texture.width / (float)texture.height) * 60 - 840,0,0);
-    }
+    }*/
 
-    public void AddEmpty()
+/*    public void AddEmpty()
     {
+        showFomula.SetActive(true);
         FileStream fs = new FileStream(Application.dataPath + "/temp/empty.png", FileMode.Open, FileAccess.Read);
         int byteLength = (int)fs.Length;
         byte[] imgBytes = new byte[byteLength];
@@ -66,18 +72,15 @@ public class RecognizePanel : MonoBehaviour
         image.sprite = sprite;
         image.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (texture.width / texture.height) * 60);
         image.gameObject.GetComponent<RectTransform>().localPosition = new Vector3((texture.width / texture.height) * 60 - 840, 0, 0);
-    }
+    }*/
     public void Clear()
     {
-        showFomula.SetActive(false);
         gameObject.SetActive(false);
         input.text = "";
-        image.sprite = null;
     }
 
     public void showRecognizePanel()
     {
-        showFomula.SetActive(false);
         gameObject.SetActive(true);
         inputPanel.Clear();
     }

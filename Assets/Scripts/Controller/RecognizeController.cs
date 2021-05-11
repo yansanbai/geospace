@@ -54,7 +54,7 @@ public class RecognizeController : MonoBehaviour
         return sb.ToString();
     }
 
-
+    //立体几何部分手写文字识别
     public string GetRecognizeResult(string base64)
     {
 
@@ -144,6 +144,8 @@ public class RecognizeController : MonoBehaviour
             return "";
         }
     }
+
+    //
     public string TryRecognize(string base64,string host) {
         try
         {
@@ -152,7 +154,6 @@ public class RecognizeController : MonoBehaviour
             request.Method = "post";
             request.KeepAlive = false;
             request.Timeout=10000;
-            //request.Proxy=null;
 
             byte[] buffer = encoding.GetBytes(base64);
             request.ContentLength = buffer.Length;
@@ -170,51 +171,40 @@ public class RecognizeController : MonoBehaviour
             return "";
         }
     }
-    public string stop() {
-        return "";
-    }
-    public void GetRecognizeFomula(string base64,out string result,out Vector3[] positions, out string image)
-    {
-        result = "";
-        positions = new Vector3[10];
-        image = "";
-        var regex = new Regex("data:image/w+;base64,");
-        base64 = regex.Replace(base64, "");
-        string str=TryRecognize(base64, "http://120.27.145.45:5000/convertUnity");
-        if (str != "")
-        {
-            JObject jo = JObject.Parse(str);
-            int code=(int)jo["code"];
-            if (code != -1)
-            {
-                result = (string)jo["data"]["latex"];
-                int length = ((JArray)jo["data"]["points"]).Count;
-                image = (string)jo["data"]["image"];
-                positions = new Vector3[length];
-                for (int i = 0; i < length; i++)
-                {
-                    positions[i][0] = (float)jo["data"]["points"][i][0];
-                    positions[i][1] = (float)jo["data"]["points"][i][1];
-                    positions[i][2] = 0;
-                }
-            }
-        }
-    }
 
+    int partcode = 0;
+    //函数部分识别公式
+    public void GetRecognizeFomula(string base64)
+    {
+        partcode = 1;
+        penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
+        WWWForm form = new WWWForm();
+        form.AddField("image", base64);
+        StartCoroutine(Post("http://120.27.145.45:5000/recognize",form));
+    }
+    public void GetPositon(string latex)
+    {
+        partcode = 2;
+        penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
+        WWWForm form = new WWWForm();
+        form.AddField("latex", latex);
+        StartCoroutine(Post("http://120.27.145.45:5000/getDataSet", form));
+    }
+    //函数部分识别系数常量变换
     public void GetRecognizeChange(string latex, string fomula)
     {
+        partcode = 3;
         penBehaviour = GameObject.Find("UI/CanvasFront/WritingPanel/Wrapper").GetComponent<PenBehaviour>();
-        StartCoroutine(Post(latex,fomula));
-    }
-
-    IEnumerator Post(string latex,string fomula)
-    {
         WWWForm form = new WWWForm();
-        //键值对
         form.AddField("transform_content", latex);
         form.AddField("latex", fomula);
+        StartCoroutine(Post("http://120.27.145.45:5000/transform", form));
+    }
+
+    IEnumerator Post(string host, WWWForm form)
+    {
         //请求链接，并将form对象发送到远程服务器
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://120.27.145.45:5000/transform", form);
+        UnityWebRequest webRequest = UnityWebRequest.Post(host,form);
         yield return webRequest.SendWebRequest();
         string result = "";
         string image = "";
@@ -222,18 +212,32 @@ public class RecognizeController : MonoBehaviour
         if (webRequest.isHttpError || webRequest.isNetworkError)
         {
             Debug.Log(webRequest.error);
-            penBehaviour.ExecuteChange(result, positions);
+            //penBehaviour.ExecuteFomula(result, positions, image);
         }
         else
         {
+            HandleData(webRequest.downloadHandler.text);
+        }
+    }
 
-            JObject jo = JObject.Parse(webRequest.downloadHandler.text);
-            Debug.Log(webRequest.downloadHandler.text);
-            if ((int)jo["code"] != -1)
-            {
+    private  void HandleData(string data) {
+        Debug.Log(data);
+        JObject jo = JObject.Parse(data);
+        string result = "";
+        string image = "";
+        Vector3[] positions = new Vector3[10];
+        if ((int)jo["code"] != -1)
+        {
+            if (jo["data"]["latex"]!=null) {
                 result = (string)jo["data"]["latex"];
-                int length = ((JArray)jo["data"]["points"]).Count;
+            }
+            if (jo["data"]["image"] != null)
+            {
                 image = (string)jo["data"]["image"];
+            }
+            if (jo["data"]["points"] != null)
+            {
+                int length = ((JArray)jo["data"]["points"]).Count;
                 positions = new Vector3[length];
                 for (int i = 0; i < length; i++)
                 {
@@ -241,24 +245,35 @@ public class RecognizeController : MonoBehaviour
                     positions[i][1] = (float)jo["data"]["points"][i][1];
                     positions[i][2] = 0;
                 }
-                byte[] data = System.Convert.FromBase64String(image);
-                FileStream file = File.Open(Application.dataPath + "/temp/fomula.png", FileMode.Create);
-                BinaryWriter writer = new BinaryWriter(file);
-                writer.Write(data);
-                file.Close();
-                file.Dispose();
             }
-            penBehaviour.ExecuteChange(result,positions);
+        }
+        if (partcode == 1)
+        {
+            penBehaviour.ExecuteFomula(result, image);
+        }
+        else if (partcode == 2)
+        {
+            penBehaviour.SetPositions(positions);
+        }
+        else 
+        {
+            byte[] img = System.Convert.FromBase64String(image);
+            FileStream file = File.Open(Application.dataPath + "/temp/fomula.png", FileMode.Create);
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(img);
+            file.Close();
+            file.Dispose();
+            penBehaviour.ExecuteChange(result, positions);
         }
     }
 
-    public string GetRecognizeTick(string base64)
+   /* public string GetRecognizeTick(string base64)
     {
         string str= TryRecognize(base64, "http://121.196.158.2:5000/circle_tick_recongize");
         JObject jo = JObject.Parse(str);
         string res = (string)jo["data"]["result"];
         return res;
-    }
+    }*/
 
     public string GetAccessToken()
     {
