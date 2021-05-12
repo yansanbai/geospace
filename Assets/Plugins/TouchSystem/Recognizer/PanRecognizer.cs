@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System;
 using System.Collections;
@@ -54,7 +55,7 @@ public class PanRecognizer : AbstractRecognizer
 
     internal override bool canTrigger(List<TSTouch> touches)
     {
-        if (touches.Count == touchCounts)
+        if ((touches.Count == 1) || (touches.Count == 2))
         {
             bool result = true;
             for (int i = 0; i < touchCounts; i++)
@@ -88,7 +89,7 @@ public class PanRecognizer : AbstractRecognizer
 
     internal override void touchesBegan(List<TSTouch> touches)
     {
-        if (touches.Count != touchCounts)
+        if ((touches.Count == 1) || (touches.Count == 2))
         {
             gestureEnd();
         }
@@ -96,7 +97,7 @@ public class PanRecognizer : AbstractRecognizer
 
     internal override void touchesMoved(List<TSTouch> touches)
     {
-        if (touches.Count == touchCounts)
+        if ((touches.Count == 1) || (touches.Count == 2))
         {
             // if (!isIdentical(touches))
             // {

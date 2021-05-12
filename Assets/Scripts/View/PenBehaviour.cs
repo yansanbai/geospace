@@ -344,7 +344,7 @@ public class PenBehaviour : ElementBehaviour
     {
         if (penMap.ContainsKey(pen))
             return;
-        if (pen.GetPoints().Count <= 1)
+        if (pen.GetPoints().Count <= 3)
             return;
         pens.Add(pen);
         GameObject penObject = new GameObject(pen.ToString());

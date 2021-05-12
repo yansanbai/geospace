@@ -120,7 +120,10 @@ public class TouchSystem : MonoBehaviour
 #if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_WEBPLAYER || UNITY_WEBGL
         if (isGetMouse)
             if (Input.GetMouseButtonUp(0) || Input.GetMouseButton(0))
+            {
+                //Debug.Log("执行动作");
                 touches.Add(touchesCache[0].updateByMouse());
+            }
 #endif
 
         if (Input.touchCount > 0)
