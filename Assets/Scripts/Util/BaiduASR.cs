@@ -260,6 +260,9 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     asrResult = match.Groups[1].ToString();
                 }
+                else {
+                    asrResult = "识别结果为空";
+                }
             }
             else
             {

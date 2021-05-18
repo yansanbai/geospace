@@ -29,7 +29,8 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     //DoubleClickButton btnToggle;
     Button btnToggle;
     Button btnDelete;
-    TEXDraw text;
+    Text text;
+    TEXDraw text1;
     Boolean isHighlighted = false;
 
     public void Init()
@@ -45,14 +46,27 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     
         btnToggle.onClick.AddListener(ToggleButtonDoubleClicked);
         btnDelete.onClick.AddListener(DeleteButtonClicked);
-
-        text = transform.Find("Text").GetComponent<TEXDraw>();
+        if (transform.Find("Text").GetComponent<TEXDraw>() != null)
+        {
+            text1 = transform.Find("Text").GetComponent<TEXDraw>();
+        }
+        else
+        {
+            text = transform.Find("Text").GetComponent<Text>();
+        }
     }
 
 
     public void SetText(string str)
     {
-        text.text = str;
+        if (text != null)
+        {
+            text.text = str;
+        }
+        else {
+            text1.text = str;
+        }
+        
     }
 
     public void SetForm(FormInput form)
@@ -61,7 +75,14 @@ public class StateCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         foreach (FormItem item in form.inputs)
             str += item.ToString() + " ";
 
-        text.text = str;
+        if (text != null)
+        {
+            text.text = str;
+        }
+        else
+        {
+            text1.text = str;
+        }
 
     }
 

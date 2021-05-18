@@ -25,6 +25,11 @@ public class SignBoard : MonoBehaviour
 
     string sign;
 
+    GameObject keyboard;
+
+    void OnDestroy() {
+        keyboard.SetActive(false);
+    }
     public void Init()
     {
         frame = transform.Find("Frame").GetComponent<Image>();
@@ -37,6 +42,9 @@ public class SignBoard : MonoBehaviour
         };
 
         InitInputElement();
+
+        keyboard = GameObject.Find("/UI/CanvasFront/OnScreenKeyboard");
+        keyboard.SetActive(true);
     }
 
     public void InitInputElement()

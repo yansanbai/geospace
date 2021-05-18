@@ -41,7 +41,7 @@ public class NavCamera : MonoBehaviour
         float width = length / screenWidth;
         float height = length / screenHeight;
 
-        _camera.rect = new Rect(x, y, width, height);
+        _camera.rect = new Rect(0.72f, 0.68f, width, height);
     }
 
     public void SetCameraTransform()

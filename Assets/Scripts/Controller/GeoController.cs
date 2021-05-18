@@ -37,7 +37,6 @@ public class GeoUI
 
 public class GeoController : MonoBehaviour
 {
-
     GeoUI geoUI;//UI
     Geometry geometry;//主物体
     GeoState state;
@@ -71,7 +70,7 @@ public class GeoController : MonoBehaviour
         int screen_height = UnityEngine.Screen.height;
         Debug.Log("屏幕宽："+screen_width);
         Debug.Log("屏幕高："+screen_height);
-        if(screen_width < MIN_WINDOW_WIDTH && screen_height < MIN_WINDOW_HEIGHT){
+/*        if(screen_width < MIN_WINDOW_WIDTH && screen_height < MIN_WINDOW_HEIGHT){
             Debug.Log("当前分辨率不符合要求");
             // TODO: 弹出对话框：“分辨率不符合要求，即将退出”
             #if UNITY_EDITOR
@@ -79,7 +78,7 @@ public class GeoController : MonoBehaviour
             #else
                 Application.Quit();
             #endif
-        }
+        }*/
 
         geometryBehaviour = GameObject.Find("/3D/Geometry").GetComponent<GeometryBehaviour>();
         navigationBehaviour = GameObject.Find("/3D/Navigation").GetComponent<NavigationBehaviour>();

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class StatePanel : MonoBehaviour
 {
     public StateCell StateCellPrefab;
-
+    public StateCell StateCellPrefab1;
     Dictionary<State, StateCell> stateCellsMap;
 
     public void Init()
@@ -71,7 +71,15 @@ public class StatePanel : MonoBehaviour
 
     private StateCell InitStateCell(State state)
     {
-        GameObject cellObject = GameObject.Instantiate(StateCellPrefab.gameObject);
+        GameObject cellObject;
+        if (state.tool.Name == "Free")
+        {
+            cellObject = GameObject.Instantiate(StateCellPrefab1.gameObject);
+        }
+        else
+        {
+            cellObject = GameObject.Instantiate(StateCellPrefab.gameObject);
+        }
         cellObject.name = state.tool.Name;
         cellObject.transform.SetParent(transform, false);
 
