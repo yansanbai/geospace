@@ -54,6 +54,8 @@ public class AddMeasureOperation : Operation
 
                 inputPanel.OnClickSubmit = (form) =>
                 {
+                    geoController.record.SetForm(form);
+                    geoController.records.Add(geoController.record);
                     AddMeasure(geometry, form);
                 };
 

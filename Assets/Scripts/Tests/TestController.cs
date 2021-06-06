@@ -14,12 +14,14 @@ public class TestController : MonoBehaviour
     private int index;
     public GameObject queprefab;
     public ResizePanel resize;
+    private GeoController geoController;
     
     // Start is called before the first frame update
     void Start()
     {
         index = 0;
         questions = new List<GameObject>();
+        geoController = GameObject.Find("/GeoController").GetComponent<GeoController>();
     }
 
     // Update is called once per frame
@@ -90,6 +92,19 @@ public class TestController : MonoBehaviour
         //回到试题列表
         Question.SetActive(false);
         Panel.SetActive(true);
+    }
+    public void SaveQuestion()
+    {
+        Debug.Log(geoController.records.Count);
+        //保存操作
+/*        for (int i = 0; i < geoController.records.Count; i++)
+        {
+            Debug.Log(geoController.records[i]);
+        }*/
+    }
+    public void Recover()
+    {
+        //恢复操作
     }
     public void Clear() {
         QuestionPanel.transform.localScale = new Vector3(1, 1, 1);

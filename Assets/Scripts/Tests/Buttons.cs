@@ -34,4 +34,12 @@ public class Buttons : MonoBehaviour
     {
         test.BackQuestion();
     }
+    public void Save()
+    {
+        test.SaveQuestion();
+    }
+    public void Recover()
+    {
+        test.Recover();
+    }
 }

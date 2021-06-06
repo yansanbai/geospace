@@ -60,6 +60,9 @@ public class GeoController : MonoBehaviour
 
     Operation currentOperation;
 
+    public ArrayList records;
+    public Record record;
+
     const int MIN_WINDOW_WIDTH = 800;
     const int MIN_WINDOW_HEIGHT = 600;
 
@@ -104,6 +107,8 @@ public class GeoController : MonoBehaviour
         recognizeController.Init(geoUI.writingPanel);
 
         ClearGeometry(3);
+
+        records =new ArrayList();
     }
 
     void InitUI()
@@ -395,10 +400,12 @@ public class GeoController : MonoBehaviour
 
     public void HandleClickTool(ToolGroupType type, Tool tool)
     {
+        record = new Record(type,tool);
         switch (type)
         {
             case ToolGroupType.Geometry:
                 GeometryOperation(tool);
+                records.Add(record);
                 break;
             case ToolGroupType.Condition:
                 AddConditionOperation(tool);
