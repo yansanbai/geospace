@@ -101,7 +101,6 @@ public class Cuboid : Geometry
 
         InitDatas();
         GameObject geo = GameObject.Find("/3D/Geometry/Vertex");
-        Debug.Log(geo.transform.childCount);
     }
 
     public override void MoveVertex(VertexUnit vertex, Ray ray, Transform camera, bool snap)
