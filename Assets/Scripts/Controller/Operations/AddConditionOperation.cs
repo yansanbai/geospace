@@ -57,7 +57,7 @@ public class AddConditionOperation : Operation
             inputPanel.OnClickSubmit = (form) =>
             {
                 geoController.record.form=form;
-                geoController.records.Add(geoController.record);
+                geoController.records.Add(geoController.record.GetCommand());
                 addCondition(geometry, form);
             };
 

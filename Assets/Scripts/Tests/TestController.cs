@@ -98,34 +98,22 @@ public class TestController : MonoBehaviour
     public void SaveQuestion()
     {
         //保存操作
-        //currentQus.SetAnswer(JsonConvert.SerializeObject(geoController.record));
-        //Debug.Log(JsonConvert.SerializeObject(new Vector3(0,0,0)));
-        Debug.Log(new Vector3(0, 0, 0));
-        GameObject.Find("/UI/CanvasFront/Text").GetComponent<Text>().text = JsonConvert.SerializeObject(geoController.record);
+/*        for (int i = 0; i < geoController.records.Count; i++)
+        {
+            Record rec = (Record)geoController.records[i];
+            Debug.Log(rec.GetCommand());
+        }*/
+       currentQus.SetAnswer(JsonConvert.SerializeObject(geoController.records));
+       Debug.Log(JsonConvert.SerializeObject(geoController.records));
     }
     public void Recover()
     {
         //恢复操作
         ArrayList ans= JsonConvert.DeserializeObject<ArrayList>(currentQus.GetAnswer());
-        Debug.Log(ans.Count);
         for (int i = 0; i < ans.Count; i++)
         {
-            Record rec = (Record)ans[i];
-            switch (rec.type)
-            {
-                case ToolGroupType.Geometry:
-                    geoController.GeometryOperation(rec.tool);
-                    break;
-                case ToolGroupType.Condition:
-                    geoController.AddConditionOperation(rec.tool);
-                    break;
-                case ToolGroupType.Auxiliary:
-                    geoController.AddAuxiliaryOperation(rec.tool);
-                    break;
-                case ToolGroupType.Measure:
-                    geoController.AddMeasureOperation(rec.tool);
-                    break;
-            }
+            Debug.Log(ans[i]);
+            geoController.Classify((string)ans[i]);
         }
     }
     public void Clear() {
