@@ -15,25 +15,32 @@ public class Record
         this.form = null;
     }
     public string GetCommand() {
-        Debug.Log(JsonConvert.SerializeObject(this.tool));
-        if (this.type == 0)
+        Debug.Log(this.type);
+        if (this.type == ToolGroupType.Geometry)
         {
             return this.tool.Description;
         }
         else {
+            Debug.Log(JsonConvert.SerializeObject(this.form));
             string str1 = "";
             string str2 = "";
-            Debug.Log(JsonConvert.SerializeObject(this.form));
-            MatchCollection mc1=Regex.Matches(JsonConvert.SerializeObject(this.form), @"""[\u4e00-\u9fa5A-Z]+""");
+            MatchCollection mc1=Regex.Matches(JsonConvert.SerializeObject(this.form), @"""[\u4e00-\u9fa5A-Z=⊥]+""|([0-9]*[.][0-9]*)");
             for (int i = 0; i < mc1.Count; i++) {
                 str1 += mc1[i].Value;
             }
-            MatchCollection mc2 = Regex.Matches(str1, @"[\u4e00-\u9fa5A-Z]+");
+            MatchCollection mc2 = Regex.Matches(str1, @"[\u4e00-\u9fa5A-Z=⊥]+|([0-9]*[.][0-9]*)");
             for (int i = 0; i < mc2.Count; i++)
             {
                 str2 += mc2[i].Value;
             }
-            return str2;
+            if (this.type== ToolGroupType.Condition)
+            {
+                return this.tool.Description + str2;
+            }
+            else
+            {
+                return str2;
+            }
         }
     }
     public ToolGroupType type { get; set; }

@@ -122,7 +122,7 @@ public class StatePanel : MonoBehaviour
             posY += stateCell.GetHeight();
         }
     }
-
+    
     private void SetCellTintColor(StateCell stateCell, int color)
     {
         stateCell.SetTintColor(StyleManager.Themes[color]);

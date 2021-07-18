@@ -109,12 +109,12 @@ public class TestController : MonoBehaviour
     public void Recover()
     {
         //恢复操作
-        ArrayList ans= JsonConvert.DeserializeObject<ArrayList>(currentQus.GetAnswer());
+        ArrayList ans = JsonConvert.DeserializeObject<ArrayList>(currentQus.GetAnswer());
         for (int i = 0; i < ans.Count; i++)
         {
-            Debug.Log(ans[i]);
             geoController.Classify((string)ans[i]);
         }
+
     }
     public void Clear() {
         QuestionPanel.transform.localScale = new Vector3(1, 1, 1);

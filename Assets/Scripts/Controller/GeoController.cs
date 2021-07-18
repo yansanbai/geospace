@@ -883,8 +883,160 @@ public class GeoController : MonoBehaviour
                     currentOperation.Start();
                 }
             }
-            else if (str.IndexOf("=") != -1 || str.IndexOf("⊥") != -1) { 
+            else if (str.IndexOf("=") != -1 || str.IndexOf("⊥") != -1) {
+                if (str.IndexOf("长") != -1)
+                {
+                    FormText text1 = new FormText("长");
+                    FormText text2 = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(3, str.Length - 3)));
 
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = text1;
+                    writeInput.inputs[1] = text2;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[0];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("宽") != -1)
+                {
+                    FormText text1 = new FormText("宽");
+                    FormText text2 = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(3, str.Length - 3)));
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = text1;
+                    writeInput.inputs[1] = text2;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[1];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("高") != -1)
+                {
+                    FormText text1 = new FormText("高");
+                    FormText text2 = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(3, str.Length - 3)));
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = text1;
+                    writeInput.inputs[1] = text2;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[1];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("底面边长") != -1)
+                {
+                    FormElement ele = new FormElement(2);
+                    ele.fields[0] = str.Substring(4, 1);
+                    ele.fields[1] = str.Substring(5, 1);
+                    FormText text = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(7, str.Length - 7)));
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = ele;
+                    writeInput.inputs[1] = text;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[0];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("底面角度") != -1)
+                {
+                    FormText text1 = new FormText("∠");
+                    FormElement ele = new FormElement(3);
+                    ele.fields[0] = str.Substring(5, 1);
+                    ele.fields[1] = str.Substring(6, 1);
+                    ele.fields[2] = str.Substring(7, 1);
+                    FormText text2 = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(9, str.Length - 9)));
+
+                    FormInput writeInput = new FormInput(4);
+                    writeInput.inputs[0] = text1;
+                    writeInput.inputs[1] = ele;
+                    writeInput.inputs[2] = text2;
+                    writeInput.inputs[3] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[1];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("棱长") != -1)
+                {
+                    FormElement ele = new FormElement(2);
+                    ele.fields[0] = str.Substring(2, 1);
+                    ele.fields[1] = str.Substring(3, 1);
+                    FormText text = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(5, str.Length - 5)));
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = ele;
+                    writeInput.inputs[1] = text;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[2];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("棱与棱垂直") != -1)
+                {
+                    FormElement ele1 = new FormElement(2);
+                    ele1.fields[0] = str.Substring(5, 1);
+                    ele1.fields[1] = str.Substring(6, 1);
+                    FormText text = new FormText("⊥");
+                    FormElement ele2 = new FormElement(2);
+                    ele2.fields[0] = str.Substring(8, 1);
+                    ele2.fields[1] = str.Substring(9, 1);
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = ele1;
+                    writeInput.inputs[1] = text;
+                    writeInput.inputs[2] = ele2;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[3];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("棱与底边垂直") != -1)
+                {
+                    FormElement ele1 = new FormElement(2);
+                    ele1.fields[0] = str.Substring(6, 1);
+                    ele1.fields[1] = str.Substring(7, 1);
+                    FormText text = new FormText("⊥");
+                    FormElement ele2 = new FormElement(2);
+                    ele2.fields[0] = str.Substring(9, 1);
+                    ele2.fields[1] = str.Substring(10, 1);
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = ele1;
+                    writeInput.inputs[1] = text;
+                    writeInput.inputs[2] = ele2;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[4];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
             }
             else if (str.IndexOf("空间一点") != -1 || str.IndexOf("空间1点") != -1)
             {
