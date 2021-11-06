@@ -15,13 +15,13 @@ public class Record
         this.form = null;
     }
     public string GetCommand() {
-        Debug.Log(this.type);
-        if (this.type == ToolGroupType.Geometry)
+        Debug.Log(this.tool.Description);
+        Debug.Log(JsonConvert.SerializeObject(this.form));
+        if (this.type == ToolGroupType.Geometry||this.form==null)
         {
             return this.tool.Description;
         }
         else {
-            Debug.Log(JsonConvert.SerializeObject(this.form));
             string str1 = "";
             string str2 = "";
             MatchCollection mc1=Regex.Matches(JsonConvert.SerializeObject(this.form), @"""[\u4e00-\u9fa5A-Z=⊥]+""|([0-9]*[.][0-9]*)");

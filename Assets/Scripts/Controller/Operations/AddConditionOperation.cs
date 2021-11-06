@@ -46,10 +46,12 @@ public class AddConditionOperation : Operation
         }
         if (writeInput == null)
         {
+
             FormInput formInput = conditionTool.FormInput();
             if (formInput != null)
             {
-                ; inputPanel.SetFormForInput(conditionTool.FormInput());
+
+                inputPanel.SetFormForInput(conditionTool.FormInput());
 
                 inputPanel.OnValidate = (form) =>
                 {

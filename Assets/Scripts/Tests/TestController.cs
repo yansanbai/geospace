@@ -112,6 +112,7 @@ public class TestController : MonoBehaviour
         ArrayList ans = JsonConvert.DeserializeObject<ArrayList>(currentQus.GetAnswer());
         for (int i = 0; i < ans.Count; i++)
         {
+            Debug.Log((string)ans[i]);
             geoController.Classify((string)ans[i]);
         }
 

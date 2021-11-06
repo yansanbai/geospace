@@ -409,12 +409,24 @@ public class GeoController : MonoBehaviour
                 records.Add(record.GetCommand());
                 break;
             case ToolGroupType.Condition:
+                if (tool.Type == GeometryType.ResolvedBody)
+                {
+                    records.Add(record.GetCommand());
+                }
                 AddConditionOperation(tool);
                 break;
             case ToolGroupType.Auxiliary:
+                if (tool.Type == GeometryType.ResolvedBody)
+                {
+                    records.Add(record.GetCommand());
+                }
                 AddAuxiliaryOperation(tool);
                 break;
             case ToolGroupType.Measure:
+                if (tool.Type == GeometryType.ResolvedBody)
+                {
+                    records.Add(record.GetCommand());
+                }
                 AddMeasureOperation(tool);
                 break;
         }
@@ -708,10 +720,6 @@ public class GeoController : MonoBehaviour
                 currentOperation = new AddAuxiliaryOperation(this, geoCamera, stateController, geometry, geometryBehaviour, geoUI, tool);
                 currentOperation.Start();
             }
-            else if (str.Length < 3)
-            {
-                Debug.Log("can not recognize!");
-            }
             else if (str.IndexOf("正方体") != -1 || str.IndexOf("立方体") != -1)
             {
                 int tar = -1;
@@ -883,8 +891,54 @@ public class GeoController : MonoBehaviour
                     currentOperation.Start();
                 }
             }
-            else if (str.IndexOf("=") != -1 || str.IndexOf("⊥") != -1) {
-                if (str.IndexOf("长") != -1)
+            else if (str.IndexOf("函数") != -1) {
+                Tool tool = geoUI.toolPanel.toolGroups[0].Tools[3];
+                currentOperation = new GeometryOperation(this, toolController, stateController, tool, geometryBehaviour);
+                currentOperation.Start();
+            }
+            if (str.IndexOf("矩形") != -1)
+            {
+                Tool tool1 = geoUI.toolPanel.toolGroups[1].Tools[0];
+                Debug.Log(tool1.Description);
+
+                SetState(GeoState.Condition);
+
+                currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool1);
+                currentOperation.Start();
+
+            }
+            else if (str.IndexOf("三角形") != -1)
+            {
+                Tool tool1 = geoUI.toolPanel.toolGroups[1].Tools[1];
+                Debug.Log(tool1.Description);
+
+                SetState(GeoState.Condition);
+
+                currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool1);
+                currentOperation.Start();
+            }
+            else if (str.IndexOf("=") != -1 || str.IndexOf("⊥") != -1)
+            {
+                if (str.IndexOf("底面边长") != -1)
+                {
+                    FormElement ele = new FormElement(2);
+                    ele.fields[0] = str.Substring(4, 1);
+                    ele.fields[1] = str.Substring(5, 1);
+                    FormText text = new FormText("=");
+                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(7, str.Length - 7)));
+
+                    FormInput writeInput = new FormInput(3);
+                    writeInput.inputs[0] = ele;
+                    writeInput.inputs[1] = text;
+                    writeInput.inputs[2] = num;
+                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[0];
+                    SetState(GeoState.Condition);
+                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
+                    opt.SetWriteInput(writeInput);
+                    currentOperation.Start();
+                }
+                else if (str.IndexOf("长") != -1)
                 {
                     FormText text1 = new FormText("长");
                     FormText text2 = new FormText("=");
@@ -935,25 +989,7 @@ public class GeoController : MonoBehaviour
                     opt.SetWriteInput(writeInput);
                     currentOperation.Start();
                 }
-                else if (str.IndexOf("底面边长") != -1)
-                {
-                    FormElement ele = new FormElement(2);
-                    ele.fields[0] = str.Substring(4, 1);
-                    ele.fields[1] = str.Substring(5, 1);
-                    FormText text = new FormText("=");
-                    FormNum num = new FormNum(Convert.ToSingle(str.Substring(7, str.Length - 7)));
 
-                    FormInput writeInput = new FormInput(3);
-                    writeInput.inputs[0] = ele;
-                    writeInput.inputs[1] = text;
-                    writeInput.inputs[2] = num;
-                    Tool tool = geoUI.toolPanel.toolGroups[1].Tools[0];
-                    SetState(GeoState.Condition);
-                    currentOperation = new AddConditionOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
-                    AddConditionOperation opt = (AddConditionOperation)currentOperation;
-                    opt.SetWriteInput(writeInput);
-                    currentOperation.Start();
-                }
                 else if (str.IndexOf("底面角度") != -1)
                 {
                     FormText text1 = new FormText("∠");
@@ -1723,6 +1759,24 @@ public class GeoController : MonoBehaviour
                 currentOperation = new AddMeasureOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
                 AddMeasureOperation opt = (AddMeasureOperation)currentOperation;
                 opt.SetWriteInput(writeInput);
+                currentOperation.Start();
+            }
+            else if (str.IndexOf("测量表面面积") != -1)
+            {
+
+                Tool tool = geoUI.toolPanel.toolGroups[3].Tools[3];
+                SetState(GeoState.Measure);
+
+                currentOperation = new AddMeasureOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
+                currentOperation.Start();
+            }
+            else if (str.IndexOf("测量体积") != -1)
+            {
+
+                Tool tool = geoUI.toolPanel.toolGroups[3].Tools[4];
+                SetState(GeoState.Measure);
+
+                currentOperation = new AddMeasureOperation(this, stateController, geometry, geometryBehaviour, geoUI, tool);
                 currentOperation.Start();
             }
             else if (str.IndexOf("面积") != -1)
