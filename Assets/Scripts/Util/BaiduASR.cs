@@ -12,8 +12,8 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     //百度语音识别相关key
     //string appId = "";
-    string apiKey = "9BuGBVp0eegORP8hZnTz11U3";              //填写自己的apiKey
-    string secretKey = "OuNbPQvwfx8DYLznBYaqedvGHVplWIZs";         //填写自己的secretKey
+    string apiKey = "6ns5wwAirLVmgIqNUswtnjgw";              //填写自己的apiKey
+    string secretKey = "v3VRXLRO8gROrV84G1tG8GkqpbNv1vna";         //填写自己的secretKey
 
     //记录accesstoken令牌
     string accessToken = string.Empty;
@@ -252,7 +252,7 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (string.IsNullOrEmpty(unityWebRequest.error))
         {
             asrResult = unityWebRequest.downloadHandler.text;
-            Debug.Log(asrResult);
+            Debug.Log("result"+asrResult);
             if (Regex.IsMatch(asrResult, @"err_msg.:.success"))
             {
                 Match match = Regex.Match(asrResult, "result.:..(.*?)..]");
