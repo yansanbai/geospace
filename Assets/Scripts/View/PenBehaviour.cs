@@ -672,9 +672,11 @@ public class PenBehaviour : ElementBehaviour
             {
                 case 3:
                     resolvedBody.SetTriangle(ShapePositions.ToArray());
+                    resolvedBody.SetDraw();
                     break;
                 case 4:
                     resolvedBody.SetRectangle(ShapePositions.ToArray());
+                    resolvedBody.SetDraw();
                     break;
                 default:
                     return false;

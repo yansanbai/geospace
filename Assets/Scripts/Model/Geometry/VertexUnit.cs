@@ -265,12 +265,15 @@ public class VertexResolvedBody: VertexUnit {   //∑÷Ω‚ÃÂ£ø
     float signY;
     float signZ;
 
+    public Vector3 pos;
+
     public VertexResolvedBody(float x, float y, float z, Vector3 faceNormal) : base(x, y, z)
     {
         this.faceNormal = faceNormal;
         signX = Mathf.Sign(x);
         signY = Mathf.Sign(y);
         signZ = Mathf.Sign(z);
+        pos = new Vector3(x, y, z);
     }
 
     public VertexResolvedBody(Vector3 position, Vector3 faceNormal) : base(position)

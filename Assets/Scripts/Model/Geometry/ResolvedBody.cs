@@ -8,6 +8,7 @@ public class ResolvedBody : Geometry
     public bool shapeSetted = false;
     public bool isSpinned = false;
     public bool isSpread = false;
+    public bool isDraw = false;
     private VertexResolvedBody[] vertexResolvedBodies;
 
     public override void Init()
@@ -19,7 +20,6 @@ public class ResolvedBody : Geometry
         vertexResolvedBodies = new VertexResolvedBody[] { };
 
     }
-
     public override void MoveVertex(VertexUnit vertex, Ray ray, Transform camera, bool snap)
     {
         if (isSpinned)
@@ -179,6 +179,12 @@ public class ResolvedBody : Geometry
         
         shapeSetted = true;
     }
+
+    public void SetDraw()
+    {
+        isDraw = true;
+    }
+
 }
 
 public class ResolvedBodyGeometryTool : GeometryTool

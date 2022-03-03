@@ -9,7 +9,7 @@ public class Question : MonoBehaviour
     public TestController test;
     private string quesname;
     private Texture2D texture;
-    private Texture2D answer;
+    private string answer;
     private Text nametext;
     private Text timetext;
     private Button open;
@@ -33,7 +33,7 @@ public class Question : MonoBehaviour
         delete.onClick.AddListener(Delete);
     }
     public void Open() {
-        Debug.Log("打开问题");
+        test.currentQus = this;
         GameObject panel = GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Panel");
         GameObject ques = GameObject.Find("UI/CanvasFront/QusetionPanel/Content/Ques");
         panel.SetActive(false);
@@ -47,11 +47,10 @@ public class Question : MonoBehaviour
     }
     public void Delete()
     {
-        Debug.Log("删除问题");
         test.DeleteQuestion(gameObject);
         Destroy(gameObject);
     }
-    public void SetAnswer(Texture2D ans) {
+    public void SetAnswer(string ans) {
         this.answer = ans;
     }
     public string GetName()
@@ -62,7 +61,7 @@ public class Question : MonoBehaviour
     {
         return this.texture;
     }
-    public Texture2D GetAnswer()
+    public string GetAnswer()
     {
         return this.answer;
     }

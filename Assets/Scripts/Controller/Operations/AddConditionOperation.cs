@@ -15,6 +15,7 @@ public class AddConditionOperation : Operation
     Tool tool;
 
     ConditionTool conditionTool;
+    FormInput writeInput;
 
 
     public AddConditionOperation(GeoController geoController, StateController stateController, Geometry geometry, GeometryBehaviour geometryBehaviour, GeoUI geoUI, Tool tool)
@@ -43,30 +44,38 @@ public class AddConditionOperation : Operation
             geoController.EndOperation();
             return;
         }
-
-        FormInput formInput = conditionTool.FormInput();
-        if (formInput != null)
+        if (writeInput == null)
         {
-;            inputPanel.SetFormForInput(conditionTool.FormInput());
 
-            inputPanel.OnValidate = (form) =>
+            FormInput formInput = conditionTool.FormInput();
+            if (formInput != null)
             {
-                return conditionTool.ValidateInput(geometry, form);
-            };
 
-            inputPanel.OnClickSubmit = (form) =>
-            {
-                geoController.record.SetForm(form);
-                geoController.records.Add(geoController.record);
-                addCondition(geometry, form);
-            };
+                inputPanel.SetFormForInput(conditionTool.FormInput());
 
-            inputPanel.OnClickCancel = (form) =>
+                inputPanel.OnValidate = (form) =>
+                {
+                    return conditionTool.ValidateInput(geometry, form);
+                };
+
+                inputPanel.OnClickSubmit = (form) =>
+                {
+                    geoController.record.form = form;
+                    geoController.records.Add(geoController.record.GetCommand());
+                    addCondition(geometry, form);
+                };
+
+                inputPanel.OnClickCancel = (form) =>
+                {
+                    geoController.EndOperation();
+                };
+            }
+            else
             {
-                geoController.EndOperation();
-            };
-        } else {
-            addCondition(geometry, null);
+                addCondition(geometry, null);
+            }
+        }else{
+            addCondition(geometry, writeInput);
         }
     }
 
@@ -119,6 +128,10 @@ public class AddConditionOperation : Operation
             form = geoController.FaceForm((GeoFace)element);
         if (form != null)
             inputPanel.InputFields(form.fields);
+    }
+    public void SetWriteInput(FormInput writeInput)
+    {
+        this.writeInput = writeInput;
     }
 
     private void AddState(Condition condition)

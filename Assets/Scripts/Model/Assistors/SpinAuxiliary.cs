@@ -142,7 +142,7 @@ public class SpinAuxiliaryTool : AuxiliaryTool
     public void SpinCartoon(VertexUnit[] vertexUnits, Geometry geometry)
     {
         ResolvedBody resolvedBody;
-        if (geometry is ResolvedBody)
+        if (geometry is ResolvedBody) 
             resolvedBody = (ResolvedBody)geometry;
         else
             return;
@@ -202,7 +202,14 @@ public class SpinAuxiliaryTool : AuxiliaryTool
         StyleManager.SetPlaneProperty(render, 0);
         render.sharedMaterial = ConfigManager.FaceStyle[0].Material;
 
-        rectangle.AddComponent<ObjectSpin>().GetData(geometry);
+        if (resolvedBody.isDraw)
+        {
+            rectangle.AddComponent<ObjectSpinSpecial>().GetData(geometry);
+        }
+        else
+        {
+            rectangle.AddComponent<ObjectSpin>().GetData(geometry);
+        }
     }
 }
 

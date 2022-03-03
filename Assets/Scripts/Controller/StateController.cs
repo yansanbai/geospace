@@ -42,10 +42,12 @@ public class StateController : MonoBehaviour
         geometryStates.Clear();
         conditionStates.Clear();
         auxiliaryStates.Clear();
+        measureStates.Clear();
 
         geometryMap.Clear();
         conditionMap.Clear();
         auxiliaryMap.Clear();
+        measureMap.Clear();
 
         vertexStatesMap.Clear();
 

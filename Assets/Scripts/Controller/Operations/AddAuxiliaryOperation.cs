@@ -64,8 +64,8 @@ public class AddAuxiliaryOperation : Operation
 
                 inputPanel.OnClickSubmit = (form) =>
                 {
-                    geoController.record.SetForm(form);
-                    geoController.records.Add(geoController.record);
+                    geoController.record.form=form;
+                    geoController.records.Add(geoController.record.GetCommand());
                     addAuxiliary(geometry, form);
                 };
 

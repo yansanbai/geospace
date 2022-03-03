@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class TestController : MonoBehaviour
     public GameObject queprefab;
     public ResizePanel resize;
     private GeoController geoController;
+    public Question currentQus;
     
     // Start is called before the first frame update
     void Start()
@@ -95,16 +97,25 @@ public class TestController : MonoBehaviour
     }
     public void SaveQuestion()
     {
-        Debug.Log(geoController.records.Count);
         //保存操作
 /*        for (int i = 0; i < geoController.records.Count; i++)
         {
-            Debug.Log(geoController.records[i]);
+            Record rec = (Record)geoController.records[i];
+            Debug.Log(rec.GetCommand());
         }*/
+       currentQus.SetAnswer(JsonConvert.SerializeObject(geoController.records));
+       Debug.Log(JsonConvert.SerializeObject(geoController.records));
     }
     public void Recover()
     {
         //恢复操作
+        ArrayList ans = JsonConvert.DeserializeObject<ArrayList>(currentQus.GetAnswer());
+        for (int i = 0; i < ans.Count; i++)
+        {
+            Debug.Log((string)ans[i]);
+            geoController.Classify((string)ans[i]);
+        }
+
     }
     public void Clear() {
         QuestionPanel.transform.localScale = new Vector3(1, 1, 1);
